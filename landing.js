@@ -65,32 +65,44 @@
     b.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })));
 
 
-  /* ===== Popup gambar distro (klik label di piringan) ===== */
+  /* ===== Klik nama distro: gambar tampil di dalam terminal ===== */
   const DISTROS = {
-    ubuntu: { name: 'Ubuntu',     tag: 'Pemula',   img: 'img/tux-ubuntu.jpg',  pos: '50% 40%', alt: 'Tux memegang CD Ubuntu',
-              desc: 'Pilihan populer untuk pemula: instalasi mudah, komunitas besar, dan banyak panduan.' },
-    debian: { name: 'Debian',     tag: 'Stabil',   img: 'img/debian-lain.jpg', pos: '50% 35%', alt: 'Karakter anime memakai laptop berlogo Debian',
-              desc: 'Dikenal sangat stabil. Banyak distro lain, termasuk Ubuntu, dibangun di atasnya.' },
-    mint:   { name: 'Linux Mint', tag: 'Pemula',   img: 'img/tux-mint.jpg',    pos: '50% 62%', alt: 'Tux memegang CD Linux Mint',
-              desc: 'Tampilannya akrab bagi pengguna Windows, stabil dan nyaman dipakai sehari-hari.' },
-    kali:   { name: 'Kali Linux', tag: 'Keamanan', img: 'img/kali.jpg',        pos: '50% 50%', alt: 'Logo Kali Linux di depan bulan',
-              desc: 'Dibuat khusus untuk pengujian keamanan. Cocok untuk belajar keamanan siber.' },
-    arch:   { name: 'Arch Linux', tag: 'Mahir',    img: 'img/tux-arch.jpg',    pos: '50% 40%', alt: 'Tux memegang CD Arch Linux',
-              desc: 'Ringan dan fleksibel. Cocok bagi yang ingin merakit sistemnya sendiri sambil belajar.' },
-    fedora: { name: 'Fedora',     tag: 'Terbaru',  img: 'img/fedora.jpg',      pos: '50% 50%', alt: 'Logo Fedora dengan ilustrasi karakter anime',
-              desc: 'Mengusung teknologi terbaru dengan tetap rapi dan stabil, didukung komunitas dan Red Hat.' }
+    ubuntu: { name: 'Ubuntu',     tag: 'Pemula',   img: 'img/tux-ubuntu.jpg',  pos: '50% 40%', alt: 'Tux memegang CD Ubuntu' },
+    debian: { name: 'Debian',     tag: 'Stabil',   img: 'img/debian-lain.jpg', pos: '50% 40%', alt: 'Karakter anime memakai laptop berlogo Debian' },
+    mint:   { name: 'Linux Mint', tag: 'Pemula',   img: 'img/tux-mint.jpg',    pos: '50% 55%', alt: 'Tux memegang CD Linux Mint' },
+    kali:   { name: 'Kali Linux', tag: 'Keamanan', img: 'img/kali.jpg',        pos: '50% 50%', alt: 'Logo Kali Linux di depan bulan' },
+    arch:   { name: 'Arch Linux', tag: 'Mahir',    img: 'img/tux-arch.jpg',    pos: '50% 40%', alt: 'Tux memegang CD Arch Linux' },
+    fedora: { name: 'Fedora',     tag: 'Terbaru',  img: 'img/fedora.jpg',      pos: '20% 50%', alt: 'Logo Fedora dengan ilustrasi karakter anime' }
   };
-  const modalEl = document.getElementById('distroModal');
-  const dImg = document.getElementById('distroImg');
-  document.querySelectorAll('[data-distro]').forEach(chip => chip.addEventListener('click', () => {
-    const d = DISTROS[chip.dataset.distro];
+  const plate = document.querySelector('.plate');
+  const shot = document.getElementById('shot');
+  const shotImg = document.getElementById('shotImg');
+  const hint = document.querySelector('.plate-hint');
+  const HINT_DEFAULT = hint.textContent;
+  const chips = [...document.querySelectorAll('[data-distro]')];
+  let current = null;
+
+  const showTerminal = () => {
+    current = null;
+    plate.classList.remove('show-shot');
+    chips.forEach(c => { c.classList.remove('on'); c.setAttribute('aria-pressed', 'false'); });
+    hint.textContent = HINT_DEFAULT;
+  };
+  const showDistro = key => {
+    const d = DISTROS[key];
     if (!d) return;
-    dImg.src = d.img; dImg.alt = d.alt; dImg.style.objectPosition = d.pos;
-    document.getElementById('distroTitle').textContent = d.name;
-    document.getElementById('distroTag').textContent = d.tag;
-    document.getElementById('distroDesc').textContent = d.desc;
-    bootstrap.Modal.getOrCreateInstance(modalEl).show();
-  }));
+    current = key;
+    shotImg.src = d.img; shotImg.alt = d.alt; shotImg.style.objectPosition = d.pos;
+    document.getElementById('shotCmd').textContent = `user@linux:~$ open ${key}.jpg`;
+    document.getElementById('shotName').textContent = `${d.name} · ${d.tag}`;
+    plate.classList.add('show-shot');
+    chips.forEach(c => { const on = c.dataset.distro === key; c.classList.toggle('on', on); c.setAttribute('aria-pressed', String(on)); });
+    hint.textContent = 'Klik lagi untuk kembali ke terminal';
+  };
+  chips.forEach(chip => chip.addEventListener('click', () =>
+    chip.dataset.distro === current ? showTerminal() : showDistro(chip.dataset.distro)));
+  shot.addEventListener('click', showTerminal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && current) showTerminal(); });
 
   /* ===== Form kontak (statis: belum terhubung ke server) ===== */
   const form = document.getElementById('contactForm');

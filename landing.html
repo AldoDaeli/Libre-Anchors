@@ -23,7 +23,7 @@
           <li class="nav-item"><a class="nav-link active" href="#beranda" aria-current="page">Beranda</a></li>
           <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="#profil" data-soon="Profil">Profil</a></li>
+          <li class="nav-item"><a class="nav-link" href="profil.html">Profil</a></li>
         </ul>
         <div class="auth-area d-flex align-items-center gap-2">
           <a href="login.html" class="btn btn-main btn-sm-pill" id="btnMasuk">MASUK</a>
@@ -58,23 +58,27 @@
         <div class="plate-wrap">
           <div class="disc" aria-hidden="true"></div>
           <div class="ring" aria-hidden="true"></div>
-          <div class="plate" aria-hidden="true">
-            <div class="term">
+          <div class="plate">
+            <div class="term" aria-hidden="true">
               <div class="l" style="--i:0"><span class="p">user@linux:~$</span> neofetch</div>
-              <div class="l" style="--i:1"><span class="k">OS</span>     : Linux</div>
-              <div class="l" style="--i:2"><span class="k">Kernel</span> : Linux 1991</div>
+              <div class="l" style="--i:1"><span class="k">OS</span>: Linux</div>
+              <div class="l" style="--i:2"><span class="k">Kernel</span>: Linux 1991</div>
               <div class="l" style="--i:3"><span class="k">Lisensi</span>: GPL (bebas)</div>
-              <div class="l" style="--i:4"><span class="k">Harga</span>  : Rp 0</div>
+              <div class="l" style="--i:4"><span class="k">Harga</span>: Rp 0</div>
               <div class="l" style="--i:5"><span class="p">user@linux:~$</span> <span class="cur"></span></div>
             </div>
+            <button type="button" class="shot" id="shot" aria-label="Kembali ke terminal">
+              <img id="shotImg" src="" alt="">
+              <span class="shot-cap"><span class="p" id="shotCmd"></span><span id="shotName"></span></span>
+            </button>
           </div>
-          <button type="button" class="chip" data-distro="ubuntu" style="top:4%;left:-2%;--d:-1s">Ubuntu</button>
-          <button type="button" class="chip" data-distro="debian" style="top:12%;right:-4%;--d:-3s">Debian</button>
-          <button type="button" class="chip" data-distro="mint" style="top:47%;right:-9%;--d:-9s">Mint</button>
-          <button type="button" class="chip" data-distro="kali" style="top:44%;left:-9%;--d:-4s">Kali</button>
-          <button type="button" class="chip" data-distro="arch" style="bottom:12%;left:-4%;--d:-5s">Arch</button>
-          <button type="button" class="chip" data-distro="fedora" style="bottom:2%;right:6%;--d:-7s">Fedora</button>
-          <p class="plate-hint">Klik nama distro untuk melihat gambarnya</p>
+          <button type="button" class="chip" data-distro="ubuntu" aria-pressed="false" style="top:4%;left:-2%;--d:-1s">Ubuntu</button>
+          <button type="button" class="chip" data-distro="debian" aria-pressed="false" style="top:12%;right:-4%;--d:-3s">Debian</button>
+          <button type="button" class="chip" data-distro="mint" aria-pressed="false" style="top:47%;right:-9%;--d:-9s">Mint</button>
+          <button type="button" class="chip" data-distro="kali" aria-pressed="false" style="top:44%;left:-9%;--d:-4s">Kali</button>
+          <button type="button" class="chip" data-distro="arch" aria-pressed="false" style="bottom:12%;left:-4%;--d:-5s">Arch</button>
+          <button type="button" class="chip" data-distro="fedora" aria-pressed="false" style="bottom:2%;right:6%;--d:-7s">Fedora</button>
+          <p class="plate-hint">Klik foto untuk melihat detail distro</p>
         </div>
       </div>
     </div>
@@ -151,7 +155,7 @@
         <a href="#beranda">Beranda</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <a href="#profil" data-soon="Profil">Profil</a>
+        <a href="profil.html">Profil</a>
       </nav>
       <button type="button" class="btn btn-ghost btn-sm-pill" data-top>KEMBALI KE ATAS <span aria-hidden="true">↑</span></button>
     </div>
@@ -162,20 +166,6 @@
 <button type="button" class="to-top" id="toTop" data-top aria-label="Kembali ke atas">↑</button>
 <div class="toast-soon" id="toastSoon" role="status" aria-live="polite"></div>
 
-
-<!-- Popup gambar distro -->
-<div class="modal fade" id="distroModal" tabindex="-1" aria-labelledby="distroTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content distro-modal">
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-      <img id="distroImg" src="" alt="">
-      <div class="dbody">
-        <div class="dhead"><h3 id="distroTitle"></h3><span class="tag" id="distroTag"></span></div>
-        <p id="distroDesc"></p>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="landing.js"></script>
