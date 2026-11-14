@@ -9,7 +9,6 @@
   const STORAGE_KEY = 'dummyAccounts';
 
   const card    = document.getElementById('card');
-  const welcome = document.getElementById('welcome');
   const formIn  = document.getElementById('formSignIn');
   const formUp  = document.getElementById('formSignUp');
 
@@ -23,7 +22,8 @@
     catch { /* storage tidak tersedia: akun hanya berlaku di sesi ini */ memory.push(acc); }
   };
   const memory = [];
-  const allAccounts = () => [...DEMO_ACCOUNTS, ...loadSaved(), ...memory];
+  // Data hasil simpanan (mis. dari halaman profil) didahulukan agar bisa menimpa akun demo
+  const allAccounts = () => [...memory, ...loadSaved(), ...DEMO_ACCOUNTS];
   const findByEmail = email => allAccounts().find(a => a.email === email.trim().toLowerCase());
 
   /* ----- Notifikasi dalam form ----- */
@@ -65,7 +65,7 @@
     if (!user || user.password !== password.value) {
       return notify(formIn, 'danger', 'Email atau kata sandi salah.');
     }
-    showWelcome(user);
+    goHome(user);
   });
 
   /* ----- Daftar ----- */
@@ -93,27 +93,16 @@
     notify(formIn);
   });
 
-  /* ----- Tampilan setelah masuk ----- */
+  /* ----- Setelah masuk: simpan sesi, langsung ke beranda ----- */
   const SESSION_KEY = 'session';
-  function showWelcome(user) {
+  function goHome(user) {
     try { localStorage.setItem(SESSION_KEY, JSON.stringify({ name: user.name, email: user.email })); } catch { /* abaikan */ }
-    document.getElementById('welcomeName').textContent = `Halo, ${user.name}!`;
-    document.getElementById('welcomeEmail').textContent = user.email;
-    document.getElementById('welcomeInitial').textContent = user.name.charAt(0).toUpperCase();
-    welcome.classList.add('show');
-    welcome.setAttribute('aria-hidden', 'false');
-    document.getElementById('logout').focus({ preventScroll: true });
+    window.location.href = 'landing.html';
   }
-  document.getElementById('logout').addEventListener('click', () => {
-    try { localStorage.removeItem(SESSION_KEY); } catch { /* abaikan */ }
-    welcome.classList.remove('show');
-    welcome.setAttribute('aria-hidden', 'true');
-    formIn.reset(); notify(formIn, 'success', 'Anda sudah keluar.');
-  });
 
-  /* Jika sudah login, langsung tampilkan sapaan */
+  /* Jika sudah login, tidak perlu di halaman ini: langsung ke beranda */
   try {
     const s = JSON.parse(localStorage.getItem(SESSION_KEY));
-    if (s && s.name) showWelcome(s);
+    if (s && s.name) window.location.replace('landing.html');
   } catch { /* abaikan */ }
 })();
