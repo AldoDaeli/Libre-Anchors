@@ -11,7 +11,7 @@
 <body>
 
 <!-- ===== Navbar ===== -->
-<nav class="navbar navbar-expand-lg fixed-top site-nav">
+<nav class="navbar navbar-expand-lg fixed-top site-nav nav-hidden" id="siteNav">
   <div class="container">
     <div class="nav-shell">
       <a class="navbar-brand brand" href="#beranda">Tuxpedia<small>Kenalan dengan Linux</small></a>
@@ -55,30 +55,9 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="plate-wrap">
-          <div class="disc" aria-hidden="true"></div>
-          <div class="ring" aria-hidden="true"></div>
-          <div class="plate">
-            <div class="term" aria-hidden="true">
-              <div class="l" style="--i:0"><span class="p">user@linux:~$</span> neofetch</div>
-              <div class="l" style="--i:1"><span class="k">OS</span>: Linux</div>
-              <div class="l" style="--i:2"><span class="k">Kernel</span>: Linux 1991</div>
-              <div class="l" style="--i:3"><span class="k">Lisensi</span>: GPL (bebas)</div>
-              <div class="l" style="--i:4"><span class="k">Harga</span>: Rp 0</div>
-              <div class="l" style="--i:5"><span class="p">user@linux:~$</span> <span class="cur"></span></div>
-            </div>
-            <button type="button" class="shot" id="shot" aria-label="Kembali ke terminal">
-              <img id="shotImg" src="" alt="">
-              <span class="shot-cap"><span class="p" id="shotCmd"></span><span id="shotName"></span></span>
-            </button>
-          </div>
-          <button type="button" class="chip" data-distro="ubuntu" aria-pressed="false" style="top:4%;left:-2%;--d:-1s">Ubuntu</button>
-          <button type="button" class="chip" data-distro="debian" aria-pressed="false" style="top:12%;right:-4%;--d:-3s">Debian</button>
-          <button type="button" class="chip" data-distro="mint" aria-pressed="false" style="top:47%;right:-9%;--d:-9s">Mint</button>
-          <button type="button" class="chip" data-distro="kali" aria-pressed="false" style="top:44%;left:-9%;--d:-4s">Kali</button>
-          <button type="button" class="chip" data-distro="arch" aria-pressed="false" style="bottom:12%;left:-4%;--d:-5s">Arch</button>
-          <button type="button" class="chip" data-distro="fedora" aria-pressed="false" style="bottom:2%;right:6%;--d:-7s">Fedora</button>
-          <p class="plate-hint">Klik foto untuk melihat detail distro</p>
+        <div class="pol-wrap">
+          <div class="pol-stage" id="stage" role="group" aria-label="Galeri distro Linux yang berganti otomatis"></div>
+          <div class="pol-dots" id="dots"></div>
         </div>
       </div>
     </div>
@@ -109,12 +88,12 @@
     <h2 class="section-title mt-5 pt-3">Distro populer</h2>
     <p class="lead-text mb-4">Distro adalah “rasa” Linux yang dikemas siap pakai. Ini enam yang sering jadi pilihan.</p>
     <div class="row g-4">
-      <div class="col-sm-6 col-lg-4"><article class="dcard"><img src="img/tux-ubuntu.jpg" alt="Tux memegang CD Ubuntu" loading="lazy" style="object-position:50% 40%"><div class="dbody"><div class="dhead"><h3>Ubuntu</h3><span class="tag">Pemula</span></div><p>Pilihan populer untuk pemula: instalasi mudah, komunitas besar, dan banyak panduan.</p></div></article></div>
-      <div class="col-sm-6 col-lg-4"><article class="dcard"><img src="img/tux-mint.jpg" alt="Tux memegang CD Linux Mint" loading="lazy" style="object-position:50% 62%"><div class="dbody"><div class="dhead"><h3>Linux Mint</h3><span class="tag">Pemula</span></div><p>Tampilannya akrab bagi pengguna Windows, stabil dan nyaman dipakai sehari-hari.</p></div></article></div>
-      <div class="col-sm-6 col-lg-4"><article class="dcard"><img src="img/debian-lain.jpg" alt="Karakter anime memakai laptop berlogo Debian" loading="lazy" style="object-position:50% 35%"><div class="dbody"><div class="dhead"><h3>Debian</h3><span class="tag">Stabil</span></div><p>Dikenal sangat stabil. Banyak distro lain, termasuk Ubuntu, dibangun di atasnya.</p></div></article></div>
-      <div class="col-sm-6 col-lg-4"><article class="dcard"><img src="img/fedora.jpg" alt="Logo Fedora dengan ilustrasi karakter anime" loading="lazy"><div class="dbody"><div class="dhead"><h3>Fedora</h3><span class="tag">Terbaru</span></div><p>Mengusung teknologi terbaru dengan tetap rapi dan stabil, didukung komunitas dan Red Hat.</p></div></article></div>
-      <div class="col-sm-6 col-lg-4"><article class="dcard"><img src="img/tux-arch.jpg" alt="Tux memegang CD Arch Linux" loading="lazy" style="object-position:50% 40%"><div class="dbody"><div class="dhead"><h3>Arch Linux</h3><span class="tag">Mahir</span></div><p>Ringan dan fleksibel. Cocok bagi yang ingin merakit sistemnya sendiri sambil belajar.</p></div></article></div>
-      <div class="col-sm-6 col-lg-4"><article class="dcard"><img src="img/kali.jpg" alt="Logo Kali Linux di depan bulan" loading="lazy"><div class="dbody"><div class="dhead"><h3>Kali Linux</h3><span class="tag">Keamanan</span></div><p>Dibuat khusus untuk pengujian keamanan. Cocok untuk belajar keamanan siber.</p></div></article></div>
+      <div class="col-sm-6 col-lg-4"><a class="dcard-link" href="distro.html?d=ubuntu"><article class="dcard"><img src="img/tux-ubuntu.jpg" alt="Tux memegang CD Ubuntu" loading="lazy" style="object-position:50% 40%"><div class="dbody"><div class="dhead"><h3>Ubuntu</h3><span class="tag">Pemula</span></div><p>Pilihan populer untuk pemula: instalasi mudah, komunitas besar, dan banyak panduan.</p><span class="more"><span class="more-open">Pelajari selengkapnya <span aria-hidden="true">→</span></span><span class="more-lock">🔒 Masuk untuk membaca <span aria-hidden="true">→</span></span></span></div></article></a></div>
+      <div class="col-sm-6 col-lg-4"><a class="dcard-link" href="distro.html?d=mint"><article class="dcard"><img src="img/tux-mint.jpg" alt="Tux memegang CD Linux Mint" loading="lazy" style="object-position:50% 62%"><div class="dbody"><div class="dhead"><h3>Linux Mint</h3><span class="tag">Pemula</span></div><p>Tampilannya akrab bagi pengguna Windows, stabil dan nyaman dipakai sehari-hari.</p><span class="more"><span class="more-open">Pelajari selengkapnya <span aria-hidden="true">→</span></span><span class="more-lock">🔒 Masuk untuk membaca <span aria-hidden="true">→</span></span></span></div></article></a></div>
+      <div class="col-sm-6 col-lg-4"><a class="dcard-link" href="distro.html?d=debian"><article class="dcard"><img src="img/debian-lain.jpg" alt="Karakter anime memakai laptop berlogo Debian" loading="lazy" style="object-position:50% 35%"><div class="dbody"><div class="dhead"><h3>Debian</h3><span class="tag">Stabil</span></div><p>Dikenal sangat stabil. Banyak distro lain, termasuk Ubuntu, dibangun di atasnya.</p><span class="more"><span class="more-open">Pelajari selengkapnya <span aria-hidden="true">→</span></span><span class="more-lock">🔒 Masuk untuk membaca <span aria-hidden="true">→</span></span></span></div></article></a></div>
+      <div class="col-sm-6 col-lg-4"><a class="dcard-link" href="distro.html?d=fedora"><article class="dcard"><img src="img/fedora.jpg" alt="Logo Fedora dengan ilustrasi karakter anime" loading="lazy"><div class="dbody"><div class="dhead"><h3>Fedora</h3><span class="tag">Terbaru</span></div><p>Mengusung teknologi terbaru dengan tetap rapi dan stabil, didukung komunitas dan Red Hat.</p><span class="more"><span class="more-open">Pelajari selengkapnya <span aria-hidden="true">→</span></span><span class="more-lock">🔒 Masuk untuk membaca <span aria-hidden="true">→</span></span></span></div></article></a></div>
+      <div class="col-sm-6 col-lg-4"><a class="dcard-link" href="distro.html?d=arch"><article class="dcard"><img src="img/tux-arch.jpg" alt="Tux memegang CD Arch Linux" loading="lazy" style="object-position:50% 40%"><div class="dbody"><div class="dhead"><h3>Arch Linux</h3><span class="tag">Mahir</span></div><p>Ringan dan fleksibel. Cocok bagi yang ingin merakit sistemnya sendiri sambil belajar.</p><span class="more"><span class="more-open">Pelajari selengkapnya <span aria-hidden="true">→</span></span><span class="more-lock">🔒 Masuk untuk membaca <span aria-hidden="true">→</span></span></span></div></article></a></div>
+      <div class="col-sm-6 col-lg-4"><a class="dcard-link" href="distro.html?d=kali"><article class="dcard"><img src="img/kali.jpg" alt="Logo Kali Linux di depan bulan" loading="lazy"><div class="dbody"><div class="dhead"><h3>Kali Linux</h3><span class="tag">Keamanan</span></div><p>Dibuat khusus untuk pengujian keamanan. Cocok untuk belajar keamanan siber.</p><span class="more"><span class="more-open">Pelajari selengkapnya <span aria-hidden="true">→</span></span><span class="more-lock">🔒 Masuk untuk membaca <span aria-hidden="true">→</span></span></span></div></article></a></div>
     </div>
   </div>
 </section>
