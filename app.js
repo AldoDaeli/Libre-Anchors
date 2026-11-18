@@ -95,14 +95,23 @@
 
   /* ----- Setelah masuk: simpan sesi, langsung ke beranda ----- */
   const SESSION_KEY = 'session';
+  /* Tujuan setelah masuk: halaman asal (?next=...) atau beranda.
+     Hanya nama file .html di folder yang sama yang diterima (mencegah redirect ke situs lain). */
+  const nextUrl = () => {
+    const n = new URLSearchParams(window.location.search).get('next') || '';
+    return /^[a-z0-9_-]+\.html(\?[a-z0-9_=&-]*)?$/i.test(n) ? n : 'landing.html';
+  };
   function goHome(user) {
     try { localStorage.setItem(SESSION_KEY, JSON.stringify({ name: user.name, email: user.email })); } catch { /* abaikan */ }
-    window.location.href = 'landing.html';
+    window.location.href = nextUrl();
   }
 
-  /* Jika sudah login, tidak perlu di halaman ini: langsung ke beranda */
+  /* Jika sudah login, tidak perlu di halaman ini */
   try {
     const s = JSON.parse(localStorage.getItem(SESSION_KEY));
-    if (s && s.name) window.location.replace('landing.html');
+    if (s && s.name) window.location.replace(nextUrl());
   } catch { /* abaikan */ }
+
+  /* Datang dari halaman yang butuh login: beri tahu */
+  if (nextUrl().startsWith('distro.html')) notify(formIn, 'info', 'Masuk dulu untuk membaca materi lengkap distro.');
 })();
