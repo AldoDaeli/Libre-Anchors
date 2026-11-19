@@ -1,0 +1,1336 @@
+{
+ "order": [
+  "ubuntu",
+  "mint",
+  "debian",
+  "fedora",
+  "arch",
+  "kali"
+ ],
+ "compare": {
+  "rows": [
+   "Harga",
+   "Kebutuhan perangkat",
+   "Kustomisasi",
+   "Privasi & kontrol",
+   "Software & game",
+   "Pembaruan",
+   "Kurva belajar"
+  ],
+  "windows": [
+   "Berbayar (umumnya sudah termasuk di laptop baru)",
+   "Windows 11 mensyaratkan TPM 2.0 dan prosesor yang relatif baru",
+   "Terbatas pada pengaturan bawaan",
+   "Ada pengumpulan data diagnostik; setup awal mendorong akun Microsoft",
+   "Paling lengkap: semua game dan software komersial",
+   "Lewat Windows Update, jadwalnya banyak diatur Microsoft",
+   "Rendah — paling banyak dikenal orang"
+  ],
+  "macos": [
+   "Gratis, tetapi hanya berjalan di perangkat Apple",
+   "Hanya Mac; Mac yang sudah tua berhenti menerima OS terbaru",
+   "Terbatas, ekosistem tertutup",
+   "Privasi dijaga cukup baik, tetapi terikat Apple ID dan ekosistem Apple",
+   "Adobe dan Microsoft Office tersedia; pilihan game terbatas",
+   "Pembaruan besar tiap tahun, tergantung usia perangkat",
+   "Rendah — antarmuka konsisten dan rapi"
+  ]
+ },
+ "distros": {
+  "ubuntu": {
+   "name": "Ubuntu",
+   "tag": "Pemula",
+   "img": "img/tux-ubuntu.jpg",
+   "pos": "50% 40%",
+   "alt": "Tux memegang CD Ubuntu",
+   "tagline": "Linux paling populer untuk memulai: mudah dipasang, komunitasnya besar, dan panduannya ada di mana-mana.",
+   "facts": [
+    [
+     "Pengembang",
+     "Canonical Ltd."
+    ],
+    [
+     "Rilis pertama",
+     "Oktober 2004"
+    ],
+    [
+     "Basis",
+     "Debian"
+    ],
+    [
+     "Paket",
+     "APT, Snap"
+    ],
+    [
+     "Desktop bawaan",
+     "GNOME"
+    ]
+   ],
+   "about": [
+    "Ubuntu adalah distro Linux yang dikembangkan oleh Canonical dan berbasis Debian. Nama “Ubuntu” berasal dari kata dalam bahasa Zulu dan Xhosa yang kira-kira berarti “aku ada karena kita ada”, cerminan semangat kebersamaan komunitas open source.",
+    "Ubuntu dirancang agar bisa langsung dipakai: installer grafis yang mudah, driver umum terdeteksi otomatis, dan toko aplikasi untuk memasang software dengan beberapa klik. Banyak orang memulai perjalanan Linux dari sini. Di sisi lain, Ubuntu juga sangat populer di server dan cloud.",
+    "Rilis baru hadir setiap enam bulan (April dan Oktober). Tiap dua tahun ada rilis LTS (Long Term Support) yang didukung lima tahun, pilihan paling aman untuk pemakaian sehari-hari."
+   ],
+   "suited": [
+    "Pemula yang baru pindah dari Windows",
+    "Pelajar dan mahasiswa (pemrograman, server, cloud)",
+    "Siapa pun yang ingin sistem “tinggal pakai”"
+   ],
+   "notSuited": [
+    "Yang ingin menyetel setiap bagian sistem dari nol (lihat Arch)",
+    "Yang ingin menghindari Snap sepenuhnya (lihat Mint atau Debian)"
+   ],
+   "fun": "Ubuntu menawarkan varian resmi dengan desktop lain: Kubuntu (KDE), Xubuntu (Xfce), Lubuntu (LXQt), dan lainnya. Cocok kalau PC-mu sudah tua.",
+   "history": [
+    {
+     "y": "2004",
+     "t": "Mark Shuttleworth lewat perusahaannya, Canonical, merilis Ubuntu 4.10 “Warty Warthog” pada 20 Oktober 2004. Tujuannya: Linux yang rapi, gratis, dan ramah untuk semua orang."
+    },
+    {
+     "y": "2006",
+     "t": "Rilis LTS pertama, Ubuntu 6.06 “Dapper Drake”, memperkenalkan konsep dukungan jangka panjang yang kini jadi ciri khas Ubuntu."
+    },
+    {
+     "y": "2011",
+     "t": "Antarmuka Unity menjadi desktop bawaan (Ubuntu 11.04) dengan tampilan dock di sisi kiri layar."
+    },
+    {
+     "y": "2017",
+     "t": "Canonical menghentikan Unity dan kembali memakai GNOME sebagai desktop bawaan mulai Ubuntu 17.10."
+    },
+    {
+     "y": "Kini",
+     "t": "Rilis reguler tiap April dan Oktober, dengan LTS di April tahun genap. Ubuntu menjadi salah satu OS yang paling banyak dipakai di cloud dan server."
+    }
+   ],
+   "specs": {
+    "note": "Angka minimum mengacu pada panduan resmi Ubuntu Desktop versi LTS; selalu cek situs resmi untuk versi terbaru. Kolom “disarankan” adalah perkiraan agar nyaman dipakai.",
+    "min": [
+     [
+      "Prosesor",
+      "2 GHz dual-core 64-bit"
+     ],
+     [
+      "RAM",
+      "4 GB"
+     ],
+     [
+      "Penyimpanan",
+      "25 GB"
+     ],
+     [
+      "Layar",
+      "1024 × 768"
+     ]
+    ],
+    "rec": [
+     [
+      "Prosesor",
+      "4 core atau lebih"
+     ],
+     [
+      "RAM",
+      "8 GB"
+     ],
+     [
+      "Penyimpanan",
+      "SSD 50 GB+"
+     ],
+     [
+      "Grafis",
+      "GPU terintegrasi sudah cukup"
+     ]
+    ],
+    "tech": [
+     [
+      "Model rilis",
+      "Rilis tetap tiap 6 bulan; LTS tiap 2 tahun"
+     ],
+     [
+      "Dukungan LTS",
+      "5 tahun (hingga 10 tahun dengan Ubuntu Pro, gratis untuk pemakaian pribadi)"
+     ],
+     [
+      "Manajer paket",
+      "APT (.deb), Snap, Flatpak opsional"
+     ],
+     [
+      "Desktop bawaan",
+      "GNOME (varian lain: Kubuntu, Xubuntu, Lubuntu)"
+     ],
+     [
+      "Sistem berkas",
+      "ext4 (ZFS opsional)"
+     ],
+     [
+      "Arsitektur",
+      "amd64; ARM tersedia"
+     ]
+    ]
+   },
+   "install": {
+    "intro": "Cara paling umum: pasang berdampingan dengan Windows (dual boot) atau pakai seluruh disk. Coba dulu lewat live session sebelum benar-benar memasang.",
+    "steps": [
+     {
+      "t": "Unduh ISO Ubuntu",
+      "d": "Ambil Ubuntu Desktop LTS dari situs resmi ubuntu.com. Ukurannya sekitar 5–6 GB. Opsional: cocokkan checksum SHA256 untuk memastikan file tidak rusak."
+     },
+     {
+      "t": "Buat flashdisk bootable",
+      "d": "Siapkan flashdisk minimal 8 GB (isinya akan terhapus). Di Windows pakai Rufus atau balenaEtcher, pilih file ISO Ubuntu, lalu mulai. Di Linux atau macOS, balenaEtcher juga bisa dipakai."
+     },
+     {
+      "t": "Cadangkan data & siapkan ruang",
+      "d": "Backup file penting dulu. Untuk dual boot dengan Windows, kecilkan partisi lewat Disk Management (klik kanan partisi C: → Shrink Volume), sisakan minimal 40–60 GB, lalu matikan Fast Startup dan cek apakah BitLocker aktif."
+     },
+     {
+      "t": "Boot dari flashdisk",
+      "d": "Colokkan flashdisk, restart, lalu tekan tombol menu boot saat logo muncul (umumnya F12, F2, Esc, atau Del, tergantung merek laptop). Pilih flashdisk dalam mode UEFI. Ubuntu mendukung Secure Boot, jadi biasanya tidak perlu dimatikan."
+     },
+     {
+      "t": "Coba atau pasang",
+      "d": "Pilih “Try or Install Ubuntu”. Kamu bisa menjelajah dulu di live session. Siap? Klik “Install Ubuntu”, pilih bahasa dan tata letak keyboard, lalu hubungkan Wi-Fi."
+     },
+     {
+      "t": "Pilih jenis instalasi",
+      "d": "Pilih “Install alongside Windows” untuk dual boot, atau “Erase disk” untuk memakai seluruh disk (semua data lama terhapus!). Centang opsi pemasangan codec dan driver pihak ketiga agar video, MP3, dan Wi-Fi langsung berfungsi."
+     },
+     {
+      "t": "Buat akun & selesai",
+      "d": "Pilih zona waktu (Jakarta), buat nama pengguna dan kata sandi, tunggu proses salin selesai, lalu restart dan cabut flashdisk."
+     }
+    ],
+    "after": {
+     "t": "Setelah terpasang, perbarui sistem",
+     "code": "sudo apt update && sudo apt upgrade"
+    },
+    "tips": [
+     "Kartu grafis NVIDIA? Buka “Additional Drivers” atau jalankan: sudo ubuntu-drivers autoinstall",
+     "Ingin menjajal tanpa risiko? Pasang di VirtualBox terlebih dahulu."
+    ]
+   },
+   "pros": [
+    {
+     "t": "Ramah pemula",
+     "d": "Installer jelas dan hardware umum langsung terdeteksi. Hampir setiap masalah sudah pernah dibahas di forum dan Ask Ubuntu."
+    },
+    {
+     "t": "Gratis dan bebas lisensi",
+     "d": "Tidak ada biaya lisensi seperti Windows dan boleh dipasang di berapa pun komputer."
+    },
+    {
+     "t": "Dukungan jangka panjang",
+     "d": "Versi LTS menerima pembaruan keamanan 5 tahun, jadi tidak perlu sering pindah versi seperti distro rolling."
+    },
+    {
+     "t": "Software melimpah",
+     "d": "Pasang aplikasi lewat toko aplikasi atau APT, tanpa mencari installer di web yang kadang menyisipkan bundleware."
+    },
+    {
+     "t": "Dipakai di dunia kerja",
+     "d": "Ubuntu sangat umum di server dan cloud, sehingga keterampilan yang kamu pelajari langsung berguna."
+    }
+   ],
+   "cons": [
+    "Snap bisa terasa lebih lambat saat aplikasi pertama kali dibuka, dan beberapa aplikasi bawaan dikemas sebagai Snap.",
+    "Tampilan GNOME berbeda dari Windows, perlu waktu menyesuaikan diri.",
+    "Adobe Photoshop dan Microsoft Office tidak tersedia secara native (ada alternatif seperti GIMP dan LibreOffice)."
+   ],
+   "compare": [
+    "Gratis, boleh dipasang di berapa pun komputer",
+    "Jalan di PC lama maupun baru; ada varian ringan (Xubuntu, Lubuntu)",
+    "Tinggi: ganti desktop, tema, dan banyak komponen sistem",
+    "Kode terbuka dan tanpa akun wajib; pengiriman data statistik bersifat opsional",
+    "Ribuan aplikasi gratis; Steam dan Proton menjalankan banyak game Windows; Adobe/Office tidak native",
+    "Terjadwal dan kamu yang memutuskan; LTS didukung 5 tahun",
+    "Rendah–sedang"
+   ],
+   "link": {
+    "label": "ubuntu.com",
+    "url": "https://ubuntu.com/download/desktop"
+   }
+  },
+  "mint": {
+   "name": "Linux Mint",
+   "tag": "Pemula",
+   "img": "img/tux-mint.jpg",
+   "pos": "50% 62%",
+   "alt": "Tux memegang CD Linux Mint",
+   "tagline": "Distro yang terasa akrab bagi pengguna Windows: menu klasik, codec siap pakai, dan stabil untuk sehari-hari.",
+   "facts": [
+    [
+     "Pengembang",
+     "Clément Lefebvre & tim"
+    ],
+    [
+     "Rilis pertama",
+     "Agustus 2006"
+    ],
+    [
+     "Basis",
+     "Ubuntu LTS"
+    ],
+    [
+     "Paket",
+     "APT, Flatpak"
+    ],
+    [
+     "Desktop bawaan",
+     "Cinnamon"
+    ]
+   ],
+   "about": [
+    "Linux Mint dibuat oleh Clément Lefebvre dengan semboyan “From freedom came elegance”. Ia berbasis Ubuntu LTS, lalu ditambah desktop yang nyaman, alat-alat bantu sendiri, dan kebijakan “jalan dulu, rapi kemudian”: semuanya siap pakai setelah instalasi.",
+    "Edisi utamanya memakai Cinnamon, desktop dengan panel di bawah, menu aplikasi, dan area notifikasi yang langsung terasa familiar bagi pengguna Windows. Tersedia juga edisi MATE dan Xfce yang lebih ringan untuk PC tua.",
+    "Mint mengambil pendekatan hati-hati: perubahan besar dilakukan pelan-pelan dan Snap tidak dipasang secara bawaan. Hasilnya, sistem yang tenang, stabil, dan jarang membuat kejutan."
+   ],
+   "suited": [
+    "Pengguna Windows yang ingin pindah dengan sedikit adaptasi",
+    "Laptop atau PC lama yang ingin dihidupkan kembali",
+    "Orang yang ingin sistem stabil tanpa banyak utak-atik"
+   ],
+   "notSuited": [
+    "Yang selalu ingin software versi paling baru (lihat Fedora atau Arch)",
+    "Yang mencari distro khusus server"
+   ],
+   "fun": "Linux Mint punya edisi LMDE (Linux Mint Debian Edition) yang berbasis langsung pada Debian, sebagai cadangan kalau basis Ubuntu berubah arah.",
+   "history": [
+    {
+     "y": "2006",
+     "t": "Linux Mint pertama dirilis oleh Clément Lefebvre, berawal dari Ubuntu dengan tambahan codec multimedia dan antarmuka yang lebih ramah."
+    },
+    {
+     "y": "2010",
+     "t": "LMDE (Linux Mint Debian Edition) diperkenalkan, berbasis langsung pada Debian."
+    },
+    {
+     "y": "2011",
+     "t": "Linux Mint 12 memperkenalkan Cinnamon sebagai respons atas perubahan besar di GNOME 3, dan tim juga mendukung MATE, kelanjutan GNOME 2."
+    },
+    {
+     "y": "2020",
+     "t": "Sejak Linux Mint 20, paket snapd diblokir secara bawaan; Mint lebih memilih Flatpak untuk aplikasi tambahan."
+    },
+    {
+     "y": "Kini",
+     "t": "Mint mengikuti siklus LTS Ubuntu: rilis besar tiap sekitar dua tahun, dengan pembaruan kecil di sela-selanya."
+    }
+   ],
+   "specs": {
+    "note": "Angka mengacu pada persyaratan resmi Linux Mint terbaru; cek situs resmi untuk versi paling baru.",
+    "min": [
+     [
+      "Prosesor",
+      "64-bit modern"
+     ],
+     [
+      "RAM",
+      "2 GB"
+     ],
+     [
+      "Penyimpanan",
+      "20 GB"
+     ],
+     [
+      "Layar",
+      "1024 × 768"
+     ]
+    ],
+    "rec": [
+     [
+      "Prosesor",
+      "Dual-core atau lebih"
+     ],
+     [
+      "RAM",
+      "4 GB (nyaman untuk Cinnamon)"
+     ],
+     [
+      "Penyimpanan",
+      "SSD 100 GB"
+     ],
+     [
+      "Grafis",
+      "GPU terintegrasi sudah cukup"
+     ]
+    ],
+    "tech": [
+     [
+      "Basis",
+      "Ubuntu LTS (LMDE berbasis Debian)"
+     ],
+     [
+      "Desktop",
+      "Cinnamon (utama), MATE, Xfce"
+     ],
+     [
+      "Manajer paket",
+      "APT dan Flatpak; Snap tidak dipasang bawaan"
+     ],
+     [
+      "Alat khas",
+      "Timeshift (snapshot), Update Manager, Driver Manager"
+     ],
+     [
+      "Model rilis",
+      "Tetap, mengikuti LTS Ubuntu"
+     ],
+     [
+      "Dukungan",
+      "Sekitar 5 tahun per rilis"
+     ]
+    ]
+   },
+   "install": {
+    "intro": "Mint punya live session yang bisa dicoba dulu. Installer-nya sederhana, dan semua pilihan penting ada di satu halaman.",
+    "steps": [
+     {
+      "t": "Unduh ISO Linux Mint",
+      "d": "Pilih edisi Cinnamon (paling umum) dari linuxmint.com. Kalau PC-mu tua, pertimbangkan edisi Xfce atau MATE. Verifikasi checksum jika ingin lebih aman."
+     },
+     {
+      "t": "Buat flashdisk bootable",
+      "d": "Siapkan flashdisk minimal 8 GB (isinya akan terhapus). Di Windows pakai Rufus atau balenaEtcher, pilih file ISO Linux Mint, lalu mulai. Di Linux atau macOS, balenaEtcher juga bisa dipakai."
+     },
+     {
+      "t": "Cadangkan data & siapkan ruang",
+      "d": "Backup file penting dulu. Untuk dual boot dengan Windows, kecilkan partisi lewat Disk Management (klik kanan partisi C: → Shrink Volume), sisakan minimal 40–60 GB, lalu matikan Fast Startup dan cek apakah BitLocker aktif."
+     },
+     {
+      "t": "Boot dari flashdisk",
+      "d": "Colokkan flashdisk, restart, lalu tekan tombol menu boot saat logo muncul (umumnya F12, F2, Esc, atau Del, tergantung merek laptop). Pilih flashdisk dalam mode UEFI. Mint mendukung Secure Boot."
+     },
+     {
+      "t": "Coba lalu pasang",
+      "d": "Mint akan masuk ke desktop live. Setelah puas mencoba, klik dua kali ikon “Install Linux Mint” di desktop, pilih bahasa dan keyboard."
+     },
+     {
+      "t": "Centang codec multimedia",
+      "d": "Pada layar “Multimedia codecs”, centang opsinya supaya video, MP3, dan format populer lain langsung berjalan."
+     },
+     {
+      "t": "Tentukan partisi",
+      "d": "Pilih “Erase disk and install Linux Mint” untuk memakai seluruh disk, atau gunakan opsi “Install alongside” bila ada Windows yang ingin dipertahankan. Setelah itu pilih zona waktu dan buat akun."
+     },
+     {
+      "t": "Restart",
+      "d": "Setelah selesai, restart dan cabut flashdisk saat diminta."
+     }
+    ],
+    "after": {
+     "t": "Setelah terpasang, perbarui sistem",
+     "code": "sudo apt update && sudo apt upgrade"
+    },
+    "tips": [
+     "Buka Update Manager untuk memilih mirror tercepat dan menerapkan pembaruan.",
+     "Siapkan Timeshift sejak awal supaya bisa kembali ke kondisi sebelum update bermasalah.",
+     "Driver Manager membantu memasang driver NVIDIA atau Wi-Fi bila diperlukan."
+    ]
+   },
+   "pros": [
+    {
+     "t": "Akrab bagi pengguna Windows",
+     "d": "Panel, menu aplikasi, dan area notifikasi mirip Windows sehingga adaptasinya cepat."
+    },
+    {
+     "t": "Codec siap pakai",
+     "d": "Video dan musik umum langsung jalan, tanpa mencari codec tambahan."
+    },
+    {
+     "t": "Timeshift",
+     "d": "Snapshot sistem mirip System Restore: kalau update bermasalah, kamu bisa kembali ke kondisi sebelumnya."
+    },
+    {
+     "t": "Tanpa Snap",
+     "d": "Mint memakai APT dan Flatpak, jadi sistem terasa ringan dan transparan bagi yang tidak suka Snap."
+    },
+    {
+     "t": "Ringan dan stabil",
+     "d": "Cinnamon nyaman di RAM 4 GB, dan tersedia edisi Xfce atau MATE untuk PC yang lebih tua."
+    }
+   ],
+   "cons": [
+    "Konservatif: teknologi baru datang belakangan dibanding Fedora atau Arch.",
+    "Versi aplikasi tidak selalu yang paling baru karena mengikuti basis Ubuntu LTS.",
+    "Komunitas lebih kecil dari Ubuntu, meski banyak panduan Ubuntu juga berlaku di Mint."
+   ],
+   "compare": [
+    "Gratis dan legal untuk dipasang di berapa pun perangkat",
+    "Cinnamon nyaman di 4 GB RAM; MATE dan Xfce untuk PC lama",
+    "Tinggi: tema, applet, dan tata letak panel mudah diubah",
+    "Kode terbuka, tanpa akun wajib dan tanpa iklan",
+    "LibreOffice, Firefox, dan banyak aplikasi lain bawaan; Steam dan Proton untuk game; Adobe/Office tidak native",
+    "Update Manager dengan tingkat keamanan; kamu yang mengatur jadwalnya",
+    "Rendah — dibuat agar mudah bagi pengguna Windows"
+   ],
+   "link": {
+    "label": "linuxmint.com",
+    "url": "https://linuxmint.com/download.php"
+   }
+  },
+  "debian": {
+   "name": "Debian",
+   "tag": "Stabil",
+   "img": "img/debian-lain.jpg",
+   "pos": "50% 35%",
+   "alt": "Karakter anime memakai laptop berlogo Debian",
+   "tagline": "Fondasi banyak distro lain. Terkenal sangat stabil, dikelola komunitas, dan berpegang pada software bebas.",
+   "facts": [
+    [
+     "Pendiri",
+     "Ian Murdock"
+    ],
+    [
+     "Pengumuman",
+     "Agustus 1993"
+    ],
+    [
+     "Basis",
+     "Mandiri"
+    ],
+    [
+     "Paket",
+     "APT, dpkg"
+    ],
+    [
+     "Desktop bawaan",
+     "GNOME"
+    ]
+   ],
+   "about": [
+    "Debian adalah salah satu distro tertua yang masih aktif. Proyeknya dijalankan oleh sukarelawan di seluruh dunia dan diatur oleh Debian Social Contract: sebuah janji untuk tetap bebas dan terbuka. Tidak ada perusahaan yang menjadi pemiliknya.",
+    "Debian punya tiga cabang utama: Stable (sangat teruji, untuk server dan komputer harian), Testing (calon rilis berikutnya), dan Unstable atau “Sid” (paling baru, paling berisiko). Kebanyakan orang memakai Stable.",
+    "Karena paketnya diuji lama sebelum dirilis, Debian sangat jarang bermasalah. Harganya: versi software relatif lebih tua dibanding distro lain. Banyak distro populer seperti Ubuntu dan Kali dibangun di atas Debian, jadi belajar Debian berarti belajar fondasi banyak distro."
+   ],
+   "suited": [
+    "Server dan komputer yang butuh stabil bertahun-tahun",
+    "Yang ingin belajar fondasi banyak distro lain",
+    "Penganut software bebas"
+   ],
+   "notSuited": [
+    "Yang selalu ingin aplikasi versi terbaru",
+    "Pemula mutlak yang mau installer paling mulus (lihat Ubuntu atau Mint)"
+   ],
+   "fun": "Nama tiap rilis Debian diambil dari karakter film Toy Story, mulai dari “Buzz” sampai “Bookworm”. Sid, cabang Unstable, adalah anak tetangga yang suka merusak mainan.",
+   "history": [
+    {
+     "y": "1993",
+     "t": "Ian Murdock mengumumkan Debian pada 16 Agustus 1993. Nama “Debian” gabungan dari nama istrinya, Debra, dan namanya sendiri, Ian."
+    },
+    {
+     "y": "1996",
+     "t": "Debian 1.1 “Buzz” menjadi rilis stabil pertama. Tradisi memakai nama karakter Toy Story dimulai dari sini."
+    },
+    {
+     "y": "1997",
+     "t": "Debian Social Contract dan Debian Free Software Guidelines ditetapkan, jadi dasar etika proyek."
+    },
+    {
+     "y": "1999",
+     "t": "Debian 2.1 “Slink” menyertakan APT, manajer paket yang kini dipakai banyak distro turunan."
+    },
+    {
+     "y": "2004",
+     "t": "Ubuntu lahir dengan Debian sebagai basis, dan membuat Debian semakin berpengaruh."
+    },
+    {
+     "y": "Kini",
+     "t": "Rilis Stable baru muncul tiap sekitar dua tahun dan didukung sekitar lima tahun (tiga tahun dukungan penuh, ditambah dukungan LTS)."
+    }
+   ],
+   "specs": {
+    "note": "Angka mengacu pada panduan instalasi resmi Debian; kebutuhan nyata tergantung desktop yang kamu pilih.",
+    "min": [
+     [
+      "Prosesor",
+      "64-bit (amd64) sekitar 1 GHz"
+     ],
+     [
+      "RAM",
+      "1 GB untuk desktop"
+     ],
+     [
+      "Penyimpanan",
+      "10 GB untuk desktop"
+     ],
+     [
+      "Tanpa desktop (server)",
+      "512 MB RAM, 2 GB disk"
+     ]
+    ],
+    "rec": [
+     [
+      "Prosesor",
+      "Dual-core atau lebih"
+     ],
+     [
+      "RAM",
+      "2 GB+"
+     ],
+     [
+      "Penyimpanan",
+      "20 GB+"
+     ],
+     [
+      "Grafis",
+      "GPU terintegrasi sudah cukup"
+     ]
+    ],
+    "tech": [
+     [
+      "Cabang",
+      "Stable, Testing, Unstable (Sid)"
+     ],
+     [
+      "Dukungan",
+      "Sekitar 5 tahun per rilis Stable"
+     ],
+     [
+      "Manajer paket",
+      "APT dan dpkg (.deb), puluhan ribu paket"
+     ],
+     [
+      "Desktop",
+      "GNOME bawaan; KDE, Xfce, MATE, dan lainnya bisa dipilih saat instalasi"
+     ],
+     [
+      "Arsitektur",
+      "amd64, arm64, armhf, dan beberapa lainnya"
+     ],
+     [
+      "Firmware",
+      "Sejak Debian 12, firmware non-free tersedia di installer resmi"
+     ]
+    ]
+   },
+   "install": {
+    "intro": "Debian punya installer yang lebih “teknis” dibanding Ubuntu, tetapi sangat jelas. Jalur favorit: gambar netinst yang kecil lalu mengunduh paket saat instalasi.",
+    "steps": [
+     {
+      "t": "Pilih dan unduh ISO",
+      "d": "Dari debian.org, pilih “netinst” (kecil, butuh internet saat instalasi) atau live image (GNOME, KDE, Xfce) bila ingin mencoba dulu. Pastikan arsitekturnya amd64 untuk PC biasa."
+     },
+     {
+      "t": "Buat flashdisk bootable",
+      "d": "Siapkan flashdisk minimal 8 GB (isinya akan terhapus). Di Windows pakai Rufus atau balenaEtcher, pilih file ISO Debian, lalu mulai. Di Linux atau macOS, balenaEtcher juga bisa dipakai."
+     },
+     {
+      "t": "Cadangkan data & siapkan ruang",
+      "d": "Backup file penting dulu. Untuk dual boot dengan Windows, kecilkan partisi lewat Disk Management (klik kanan partisi C: → Shrink Volume), sisakan minimal 40–60 GB, lalu matikan Fast Startup dan cek apakah BitLocker aktif."
+     },
+     {
+      "t": "Boot dari flashdisk",
+      "d": "Colokkan flashdisk, restart, lalu tekan tombol menu boot saat logo muncul (umumnya F12, F2, Esc, atau Del, tergantung merek laptop). Pilih flashdisk dalam mode UEFI. Jika Secure Boot bermasalah, matikan dulu lewat pengaturan BIOS/UEFI."
+     },
+     {
+      "t": "Mulai installer",
+      "d": "Pilih “Graphical install”. Atur bahasa, lokasi (Indonesia), dan tata letak keyboard. Tentukan hostname dan nama pengguna."
+     },
+     {
+      "t": "Kata sandi root",
+      "d": "Kosongkan kata sandi root bila ingin akun pertamamu otomatis mendapat sudo. Kalau diisi, root akan aktif dan sudo mungkin belum terpasang."
+     },
+     {
+      "t": "Atur partisi",
+      "d": "Pilih “Guided – use entire disk” bila memakai seluruh disk. Opsi LVM dan enkripsi tersedia untuk yang membutuhkan. Hati-hati: ini menghapus data di disk tujuan."
+     },
+     {
+      "t": "Pilih software",
+      "d": "Di “Software selection”, centang lingkungan desktop yang kamu mau (GNOME, KDE, Xfce, …) beserta “standard system utilities”. Pasang GRUB ke disk utama, lalu restart."
+     }
+    ],
+    "after": {
+     "t": "Setelah terpasang, perbarui sistem",
+     "code": "sudo apt update && sudo apt full-upgrade\n# Jika sudo belum ada, masuk sebagai root dulu:\nsu -"
+    },
+    "tips": [
+     "Perlu aplikasi lebih baru? Aktifkan repositori “backports” untuk paket versi lebih mutakhir.",
+     "Debian juga cocok sebagai server tanpa desktop: cukup pilih “SSH server” dan “standard system utilities”."
+    ]
+   },
+   "pros": [
+    {
+     "t": "Sangat stabil",
+     "d": "Paket diuji lama sebelum masuk ke Stable. Cocok untuk komputer yang tidak boleh sering bermasalah."
+    },
+    {
+     "t": "Dikelola komunitas",
+     "d": "Bukan milik perusahaan mana pun, sehingga arah proyek ditentukan relawan dan aturan terbuka."
+    },
+    {
+     "t": "Berpegang pada software bebas",
+     "d": "Social Contract menjamin Debian tetap terbuka. Software non-free dipisah dengan jelas."
+    },
+    {
+     "t": "Fondasi banyak distro",
+     "d": "Ubuntu, Mint (edisi LMDE), Kali, dan banyak lagi memakai Debian. Ilmu yang kamu pelajari bisa dipakai di mana-mana."
+    },
+    {
+     "t": "Ringan dan fleksibel",
+     "d": "Bisa dipasang tanpa desktop sebagai server, atau dengan desktop apa pun, di perangkat tua sekalipun."
+    }
+   ],
+   "cons": [
+    "Versi software di Stable cenderung lebih lama dibanding distro lain.",
+    "Dukungan hardware paling baru kadang tertinggal; solusi: pakai kernel dari backports.",
+    "Installer lebih teknis dibanding Ubuntu atau Mint."
+   ],
+   "compare": [
+    "Gratis dan bebas, tanpa perusahaan pemilik",
+    "Sangat ringan, bisa dipasang bahkan di PC lama atau server kecil",
+    "Tinggi: pilih desktop apa pun, atau tanpa desktop",
+    "Kode terbuka dan komitmen privasi; tanpa akun atau telemetri wajib",
+    "Puluhan ribu paket; Steam tersedia; versi aplikasi cenderung lebih lama; Adobe/Office tidak native",
+    "Sangat jarang berubah besar; rilis baru tiap ±2 tahun",
+    "Sedang"
+   ],
+   "link": {
+    "label": "debian.org",
+    "url": "https://www.debian.org/distrib/"
+   }
+  },
+  "fedora": {
+   "name": "Fedora",
+   "tag": "Terbaru",
+   "img": "img/fedora.jpg",
+   "pos": "20% 50%",
+   "alt": "Logo Fedora dengan ilustrasi karakter anime",
+   "tagline": "Teknologi Linux terbaru yang tetap rapi dan stabil, didukung komunitas dan Red Hat.",
+   "facts": [
+    [
+     "Pengembang",
+     "Fedora Project (Red Hat)"
+    ],
+    [
+     "Rilis pertama",
+     "November 2003"
+    ],
+    [
+     "Basis",
+     "Mandiri"
+    ],
+    [
+     "Paket",
+     "DNF (RPM)"
+    ],
+    [
+     "Desktop bawaan",
+     "GNOME"
+    ]
+   ],
+   "about": [
+    "Fedora adalah distro yang dikembangkan oleh Fedora Project dan disponsori Red Hat. Fedora dikenal sebagai “pembawa” teknologi baru: banyak fitur seperti systemd, Wayland, dan PipeWire sudah dipakai Fedora lebih dulu sebelum distro lain.",
+    "Meskipun selalu bergerak maju, Fedora tetap rapi dan stabil. Edisi Workstation memakai GNOME yang nyaris tanpa modifikasi, dan ada “Spin” untuk KDE Plasma, Xfce, dan desktop lain.",
+    "Fedora juga merupakan hulu (upstream) dari Red Hat Enterprise Linux, sehingga cocok bagi yang ingin berkarier di dunia enterprise. Linus Torvalds, pencipta Linux, dikenal memakai Fedora di komputernya."
+   ],
+   "suited": [
+    "Developer yang ingin toolchain dan teknologi terbaru",
+    "Calon admin sistem yang ingin belajar ekosistem Red Hat",
+    "Yang menyukai GNOME murni"
+   ],
+   "notSuited": [
+    "Yang tidak ingin upgrade versi tiap beberapa bulan",
+    "Yang ingin codec dan driver proprietary langsung tersedia tanpa langkah tambahan"
+   ],
+   "fun": "Nama “Fedora” diambil dari topi fedora yang ada di logo Red Hat.",
+   "history": [
+    {
+     "y": "2003",
+     "t": "Setelah Red Hat Linux dihentikan, Fedora Core 1 dirilis pada 6 November 2003 dengan model pengembangan terbuka bersama komunitas."
+    },
+    {
+     "y": "2011",
+     "t": "Fedora 15 menjadi distro besar pertama yang memakai systemd sebagai sistem init bawaan."
+    },
+    {
+     "y": "2014",
+     "t": "Fedora 21 memecah distribusi menjadi edisi Workstation, Server, dan Cloud."
+    },
+    {
+     "y": "2016",
+     "t": "Fedora 25 menjadikan Wayland sebagai sesi grafis bawaan di GNOME."
+    },
+    {
+     "y": "2020–21",
+     "t": "Fedora 33 memilih Btrfs sebagai sistem berkas bawaan; Fedora 34 membawa PipeWire sebagai pengelola audio dan video."
+    },
+    {
+     "y": "Kini",
+     "t": "Rilis baru kira-kira tiap 6 bulan, tiap versi didukung sekitar 13 bulan."
+    }
+   ],
+   "specs": {
+    "note": "Angka mengacu pada persyaratan resmi Fedora Workstation; cek dokumentasi untuk versi paling baru.",
+    "min": [
+     [
+      "Prosesor",
+      "2 GHz (disarankan multi-core)"
+     ],
+     [
+      "RAM",
+      "4 GB"
+     ],
+     [
+      "Penyimpanan",
+      "20 GB"
+     ],
+     [
+      "Grafis",
+      "Mendukung GNOME dan Wayland"
+     ]
+    ],
+    "rec": [
+     [
+      "Prosesor",
+      "Quad-core"
+     ],
+     [
+      "RAM",
+      "8 GB"
+     ],
+     [
+      "Penyimpanan",
+      "SSD 50 GB+"
+     ],
+     [
+      "Grafis",
+      "GPU modern"
+     ]
+    ],
+    "tech": [
+     [
+      "Model rilis",
+      "Tetap, tiap ±6 bulan"
+     ],
+     [
+      "Dukungan",
+      "Sekitar 13 bulan per versi"
+     ],
+     [
+      "Manajer paket",
+      "DNF (RPM), plus Flatpak"
+     ],
+     [
+      "Desktop",
+      "GNOME (Workstation); Spin KDE Plasma, Xfce, dan lainnya"
+     ],
+     [
+      "Fitur bawaan",
+      "Wayland, PipeWire, SELinux aktif, Btrfs"
+     ],
+     [
+      "Hubungan",
+      "Hulu dari Red Hat Enterprise Linux"
+     ]
+    ]
+   },
+   "install": {
+    "intro": "Cara termudah: pakai Fedora Media Writer, aplikasi resmi yang mengunduh dan menulis ISO ke flashdisk sekaligus.",
+    "steps": [
+     {
+      "t": "Unduh Fedora Workstation",
+      "d": "Dari fedoraproject.org, ambil Fedora Workstation (atau Spin sesuai desktop yang kamu mau). Alternatifnya, gunakan Fedora Media Writer untuk Windows, macOS, atau Linux."
+     },
+     {
+      "t": "Buat flashdisk bootable",
+      "d": "Siapkan flashdisk minimal 8 GB (isinya akan terhapus). Di Windows pakai Rufus atau balenaEtcher, pilih file ISO Fedora, lalu mulai. Di Linux atau macOS, balenaEtcher juga bisa dipakai."
+     },
+     {
+      "t": "Cadangkan data & siapkan ruang",
+      "d": "Backup file penting dulu. Untuk dual boot dengan Windows, kecilkan partisi lewat Disk Management (klik kanan partisi C: → Shrink Volume), sisakan minimal 40–60 GB, lalu matikan Fast Startup dan cek apakah BitLocker aktif."
+     },
+     {
+      "t": "Boot dari flashdisk",
+      "d": "Colokkan flashdisk, restart, lalu tekan tombol menu boot saat logo muncul (umumnya F12, F2, Esc, atau Del, tergantung merek laptop). Pilih flashdisk dalam mode UEFI. Fedora mendukung Secure Boot."
+     },
+     {
+      "t": "Masuk live session",
+      "d": "Pilih “Start Fedora-Workstation-Live”. Kamu bisa mencoba dulu; saat siap, pilih “Install to Hard Drive”."
+     },
+     {
+      "t": "Atur penyimpanan",
+      "d": "Pilih bahasa dan keyboard, lalu tentukan disk tujuan. Mode otomatis akan membuat partisi dengan Btrfs. Pilih mode kustom bila ingin dual boot dengan Windows."
+     },
+     {
+      "t": "Buat akun & restart",
+      "d": "Isi nama dan kata sandi, tunggu instalasi, lalu restart dan cabut flashdisk."
+     }
+    ],
+    "after": {
+     "t": "Setelah terpasang, perbarui sistem",
+     "code": "sudo dnf upgrade --refresh"
+    },
+    "tips": [
+     "Perlu codec proprietary atau driver NVIDIA? Aktifkan repositori RPM Fusion (tersedia di rpmfusion.org).",
+     "Flathub sudah mudah diaktifkan untuk memasang aplikasi populer dari toko aplikasi."
+    ]
+   },
+   "pros": [
+    {
+     "t": "Teknologi paling baru, tetap stabil",
+     "d": "Fitur seperti Wayland, PipeWire, dan Btrfs hadir lebih awal, tetapi sudah dirapikan sebelum sampai ke pengguna."
+    },
+    {
+     "t": "Keamanan kuat",
+     "d": "SELinux aktif secara bawaan, ditambah praktik keamanan yang diwarisi dari ekosistem Red Hat."
+    },
+    {
+     "t": "Relevan untuk karier",
+     "d": "Sebagai hulu RHEL, belajar Fedora memudahkan transisi ke server dan sertifikasi enterprise."
+    },
+    {
+     "t": "GNOME yang murni",
+     "d": "Pengalaman GNOME seperti yang dirancang pembuatnya, tanpa banyak modifikasi vendor."
+    },
+    {
+     "t": "Murni open source",
+     "d": "Secara bawaan hanya software bebas, sehingga lebih jelas dari sisi lisensi."
+    }
+   ],
+   "cons": [
+    "Versi cepat usang: dukungan sekitar 13 bulan, jadi perlu upgrade satu atau dua kali setahun.",
+    "Codec proprietary dan driver tertentu perlu RPM Fusion.",
+    "Panduan komunitas tidak sebanyak Ubuntu."
+   ],
+   "compare": [
+    "Gratis dan legal untuk dipasang di berapa pun perangkat",
+    "Butuh hardware yang cukup modern (4 GB RAM ke atas lebih nyaman)",
+    "Tinggi: spin desktop, tema, dan alat pengembang",
+    "Kode terbuka, SELinux aktif, tanpa akun wajib",
+    "Flathub dan repositori besar; game lewat Steam/Proton; Adobe/Office tidak native",
+    "Upgrade versi tiap ±6 bulan, lewat GNOME Software atau dnf",
+    "Sedang"
+   ],
+   "link": {
+    "label": "fedoraproject.org",
+    "url": "https://fedoraproject.org/workstation/download"
+   }
+  },
+  "arch": {
+   "name": "Arch Linux",
+   "tag": "Mahir",
+   "img": "img/tux-arch.jpg",
+   "pos": "50% 40%",
+   "alt": "Tux memegang CD Arch Linux",
+   "tagline": "Ringan, minimalis, dan sepenuhnya kamu yang atur. Belajar Linux dari dasarnya.",
+   "facts": [
+    [
+     "Pendiri",
+     "Judd Vinet"
+    ],
+    [
+     "Rilis pertama",
+     "Maret 2002"
+    ],
+    [
+     "Basis",
+     "Mandiri"
+    ],
+    [
+     "Paket",
+     "pacman, AUR"
+    ],
+    [
+     "Desktop bawaan",
+     "Tidak ada"
+    ]
+   ],
+   "about": [
+    "Arch Linux mengikuti prinsip KISS (Keep It Simple): sistem dasar yang minimal, tanpa pilihan yang sudah “dipaketkan” untukmu. Kamu memasang hanya apa yang kamu butuhkan, dan akhirnya paham apa yang ada di dalam komputermu.",
+    "Arch memakai model rolling release: tidak ada “versi 24” atau “versi 25”. Cukup perbarui sistem secara rutin dan kamu selalu memakai versi terbaru. Manajer paketnya, pacman, cepat dan sederhana, ditambah AUR (Arch User Repository) yang berisi puluhan ribu paket dari komunitas.",
+    "Daya tarik terbesar Arch adalah Arch Wiki, dokumentasi yang dianggap salah satu yang terbaik di dunia Linux, dan berguna bahkan bagi pengguna distro lain."
+   ],
+   "suited": [
+    "Yang ingin paham Linux sampai ke dalam",
+    "Pengguna berpengalaman yang ingin sistem minimalis",
+    "Pencinta rolling release"
+   ],
+   "notSuited": [
+    "Pemula yang baru mencoba Linux",
+    "Yang tidak ingin meluangkan waktu merawat sistem"
+   ],
+   "fun": "“I use Arch, btw” adalah meme terkenal di komunitas Linux, karena pengguna Arch dikenal bangga dengan pilihan distronya.",
+   "history": [
+    {
+     "y": "2002",
+     "t": "Judd Vinet merilis Arch Linux 0.1 “Homer” pada 11 Maret 2002, terinspirasi dari distro CRUX, dengan pacman sebagai manajer paketnya."
+    },
+    {
+     "y": "2007",
+     "t": "Aaron Griffin menggantikan Judd Vinet sebagai pemimpin proyek."
+    },
+    {
+     "y": "2012",
+     "t": "Arch beralih ke systemd sebagai sistem init bawaan."
+    },
+    {
+     "y": "2021",
+     "t": "Skrip archinstall disertakan di ISO resmi sehingga ada jalur instalasi terpandu yang lebih mudah."
+    },
+    {
+     "y": "2022",
+     "t": "SteamOS 3 di Steam Deck dibangun di atas Arch Linux, memperkenalkan Arch ke jutaan pemain."
+    }
+   ],
+   "specs": {
+    "note": "Angka mengacu pada panduan instalasi resmi di Arch Wiki; kebutuhan nyata bergantung pada desktop dan aplikasi yang kamu pasang.",
+    "min": [
+     [
+      "Prosesor",
+      "x86-64"
+     ],
+     [
+      "RAM",
+      "512 MB"
+     ],
+     [
+      "Penyimpanan",
+      "Sekitar 2 GB untuk sistem dasar"
+     ],
+     [
+      "Lainnya",
+      "Koneksi internet wajib"
+     ]
+    ],
+    "rec": [
+     [
+      "Prosesor",
+      "Dual-core atau lebih"
+     ],
+     [
+      "RAM",
+      "4 GB+ (desktop)"
+     ],
+     [
+      "Penyimpanan",
+      "SSD 30 GB+"
+     ],
+     [
+      "Lainnya",
+      "Waktu untuk membaca Arch Wiki"
+     ]
+    ],
+    "tech": [
+     [
+      "Model rilis",
+      "Rolling release"
+     ],
+     [
+      "Manajer paket",
+      "pacman, plus AUR (lewat helper komunitas)"
+     ],
+     [
+      "Sistem init",
+      "systemd"
+     ],
+     [
+      "Desktop",
+      "Tidak ada bawaan; kamu pilih sendiri"
+     ],
+     [
+      "Installer",
+      "archinstall (terpandu) atau manual"
+     ],
+     [
+      "Arsitektur",
+      "x86-64 (ARM lewat proyek tak resmi)"
+     ]
+    ]
+   },
+   "install": {
+    "intro": "Ada dua jalur: archinstall (terpandu, lebih cepat) atau instalasi manual (lebih banyak belajar). Selalu baca Installation Guide di Arch Wiki sebagai pegangan.",
+    "steps": [
+     {
+      "t": "Unduh ISO Arch",
+      "d": "Ambil ISO dari archlinux.org dan, bila perlu, verifikasi tanda tangan atau checksum-nya. Siapkan koneksi internet yang stabil."
+     },
+     {
+      "t": "Buat flashdisk bootable",
+      "d": "Siapkan flashdisk minimal 8 GB (isinya akan terhapus). Di Windows pakai Rufus atau balenaEtcher, pilih file ISO Arch, lalu mulai. Di Linux atau macOS, balenaEtcher juga bisa dipakai."
+     },
+     {
+      "t": "Cadangkan data & siapkan ruang",
+      "d": "Backup file penting dulu. Untuk dual boot dengan Windows, kecilkan partisi lewat Disk Management (klik kanan partisi C: → Shrink Volume), sisakan minimal 40–60 GB, lalu matikan Fast Startup dan cek apakah BitLocker aktif."
+     },
+     {
+      "t": "Boot dari flashdisk",
+      "d": "Colokkan flashdisk, restart, lalu tekan tombol menu boot saat logo muncul (umumnya F12, F2, Esc, atau Del, tergantung merek laptop). Pilih flashdisk dalam mode UEFI. Matikan Secure Boot, karena ISO Arch tidak menyertakan tanda tangan untuk itu."
+     },
+     {
+      "t": "Siapkan lingkungan live",
+      "d": "Kamu akan masuk ke terminal. Cek internet, dan jika memakai Wi-Fi gunakan iwctl untuk menyambung. Pastikan jam sistem tersinkron.",
+      "code": "ping -c 3 archlinux.org\niwctl            # untuk Wi-Fi\ntimedatectl"
+     },
+     {
+      "t": "Jalur mudah: archinstall",
+      "d": "Jalankan skrip terpandu, lalu pilih disk, bootloader, profil desktop (misalnya KDE, GNOME, atau Xfce), dan buat pengguna.",
+      "code": "archinstall"
+     },
+     {
+      "t": "Atau jalur manual (garis besar)",
+      "d": "Partisi disk, format, mount, pasang sistem dasar, lalu masuk ke sistem baru dengan chroot dan atur locale, zona waktu, hostname, kata sandi, dan bootloader. Detail lengkap ada di Arch Wiki.",
+      "code": "cfdisk /dev/sdX                      # partisi (ganti sdX dengan disk tujuanmu)\nmkfs.fat -F32 /dev/sdX1\nmkfs.ext4 /dev/sdX2\nmount /dev/sdX2 /mnt\nmount --mkdir /dev/sdX1 /mnt/boot\npacstrap -K /mnt base linux linux-firmware\ngenfstab -U /mnt >> /mnt/etc/fstab\narch-chroot /mnt"
+     }
+    ],
+    "after": {
+     "t": "Setelah terpasang, perbarui sistem secara rutin",
+     "code": "sudo pacman -Syu"
+    },
+    "tips": [
+     "Jangan lupa memasang paket jaringan (misalnya NetworkManager) dan lingkungan desktop sebelum restart.",
+     "Baca berita di archlinux.org sebelum update besar untuk mengantisipasi perubahan yang butuh tindakan manual."
+    ]
+   },
+   "pros": [
+    {
+     "t": "Kontrol penuh",
+     "d": "Sistem dasar sangat minimal. Kamu menentukan setiap komponen sehingga tidak ada software yang tidak kamu butuhkan."
+    },
+    {
+     "t": "Rolling release",
+     "d": "Selalu mendapat versi terbaru tanpa perlu upgrade besar dari versi ke versi."
+    },
+    {
+     "t": "Arch Wiki",
+     "d": "Dokumentasi yang sangat lengkap, berguna untuk distro apa pun, bukan hanya Arch."
+    },
+    {
+     "t": "AUR",
+     "d": "Puluhan ribu paket dari komunitas, termasuk software yang tidak ada di repositori resmi."
+    },
+    {
+     "t": "Belajar mendalam",
+     "d": "Memasang Arch memaksa kamu memahami partisi, bootloader, dan jaringan, ilmu yang sangat berharga."
+    }
+   ],
+   "cons": [
+    "Instalasi butuh waktu dan ketelitian; tidak ada installer grafis resmi.",
+    "Rolling release sesekali membawa perubahan yang butuh perbaikan manual.",
+    "Perawatan sepenuhnya jadi tanggung jawabmu."
+   ],
+   "compare": [
+    "Gratis dan bebas",
+    "Bisa sangat ringan karena kamu memilih sendiri komponennya",
+    "Tertinggi: kamu merakit sistem dari nol",
+    "Kode terbuka, tanpa akun wajib atau telemetri; kamu mengontrol semuanya",
+    "Repositori resmi + AUR sangat luas; Steam dan Proton siap dipasang; Adobe/Office tidak native",
+    "Rolling: satu perintah (pacman -Syu), selalu versi terbaru",
+    "Tinggi"
+   ],
+   "link": {
+    "label": "archlinux.org",
+    "url": "https://archlinux.org/download/"
+   }
+  },
+  "kali": {
+   "name": "Kali Linux",
+   "tag": "Keamanan",
+   "img": "img/kali.jpg",
+   "pos": "50% 50%",
+   "alt": "Logo Kali Linux di depan bulan",
+   "tagline": "Distro khusus keamanan siber dengan ratusan alat pengujian yang sudah terpasang.",
+   "facts": [
+    [
+     "Pengembang",
+     "OffSec"
+    ],
+    [
+     "Rilis pertama",
+     "Maret 2013"
+    ],
+    [
+     "Basis",
+     "Debian"
+    ],
+    [
+     "Paket",
+     "APT"
+    ],
+    [
+     "Desktop bawaan",
+     "Xfce"
+    ]
+   ],
+   "about": [
+    "Kali Linux adalah distro berbasis Debian yang dibuat khusus untuk penetration testing dan digital forensics. Ia dikembangkan oleh OffSec (Offensive Security) dan membawa ratusan alat keamanan siap pakai, seperti Nmap, Wireshark, Metasploit, Burp Suite, dan Aircrack-ng.",
+    "Kali bukan sistem untuk dipakai harian oleh pemula. Pengaturan bawaannya dirancang untuk pengujian, bukan untuk penggunaan umum. Cara yang paling disarankan adalah menjalankannya di mesin virtual, atau di Windows lewat WSL.",
+    "Penting: gunakan Kali hanya pada sistem milikmu sendiri atau yang sudah memberikan izin tertulis. Mengakses sistem orang lain tanpa izin melanggar hukum."
+   ],
+   "suited": [
+    "Pelajar keamanan siber dan peserta CTF",
+    "Penguji penetrasi dan peneliti keamanan",
+    "Yang ingin lab belajar di mesin virtual"
+   ],
+   "notSuited": [
+    "Pemula Linux yang butuh sistem harian",
+    "Siapa pun yang tidak punya izin untuk menguji sistem target"
+   ],
+   "fun": "Kali tersedia dalam banyak bentuk: ISO installer, image mesin virtual, WSL di Windows, perangkat ARM seperti Raspberry Pi, bahkan Kali NetHunter untuk Android.",
+   "history": [
+    {
+     "y": "2006",
+     "t": "BackTrack Linux, pendahulu Kali, lahir sebagai distro untuk pengujian keamanan."
+    },
+    {
+     "y": "2013",
+     "t": "Kali Linux 1.0 dirilis pada 13 Maret 2013 oleh Offensive Security, dibangun ulang di atas Debian sebagai pengganti BackTrack."
+    },
+    {
+     "y": "2016",
+     "t": "Kali beralih ke model rolling release (Kali Rolling) sehingga alat-alatnya terus diperbarui."
+    },
+    {
+     "y": "2020",
+     "t": "Mulai versi 2020.1, Kali tidak lagi memakai akun root sebagai pengguna bawaan."
+    },
+    {
+     "y": "Kini",
+     "t": "Rilis terjadwal tiap kuartal, dengan alat baru dan perbaikan; tersedia juga lewat WSL dan perangkat ARM."
+    }
+   ],
+   "specs": {
+    "note": "Angka mengacu pada dokumentasi resmi Kali dan perkiraan umum; kebutuhan nyata tergantung alat yang dijalankan.",
+    "min": [
+     [
+      "Prosesor",
+      "amd64 atau arm64 modern"
+     ],
+     [
+      "RAM",
+      "2 GB"
+     ],
+     [
+      "Penyimpanan",
+      "20 GB"
+     ],
+     [
+      "Lainnya",
+      "Disarankan di VM"
+     ]
+    ],
+    "rec": [
+     [
+      "Prosesor",
+      "Dual-core atau lebih (2 vCPU di VM)"
+     ],
+     [
+      "RAM",
+      "4 GB+"
+     ],
+     [
+      "Penyimpanan",
+      "50 GB+"
+     ],
+     [
+      "Lainnya",
+      "Snapshot VM sebelum bereksperimen"
+     ]
+    ],
+    "tech": [
+     [
+      "Model rilis",
+      "Rolling (berbasis Debian Testing), rilis terjadwal tiap kuartal"
+     ],
+     [
+      "Jumlah alat",
+      "Ratusan alat keamanan"
+     ],
+     [
+      "Manajer paket",
+      "APT (.deb)"
+     ],
+     [
+      "Desktop",
+      "Xfce bawaan; GNOME dan KDE tersedia"
+     ],
+     [
+      "Bentuk distribusi",
+      "ISO, image VM, WSL, ARM, NetHunter (Android)"
+     ],
+     [
+      "Pengembang",
+      "OffSec (Offensive Security)"
+     ]
+    ]
+   },
+   "install": {
+    "intro": "Cara paling mudah dan aman: pakai image mesin virtual siap pakai di VirtualBox atau VMware. Instalasi langsung ke disk pun tersedia untuk yang membutuhkannya.",
+    "steps": [
+     {
+      "t": "Pilih bentuk pemasangan",
+      "d": "Di kali.org, kamu bisa mengunduh Installer ISO, Live ISO, atau image mesin virtual. Untuk pemula, image mesin virtual (VirtualBox/VMware) adalah jalur tercepat dan paling aman."
+     },
+     {
+      "t": "Jalur A: mesin virtual",
+      "d": "Impor image yang sudah diunduh ke VirtualBox atau VMware, alokasikan 4 GB RAM dan 2 vCPU, lalu nyalakan. Tidak perlu menyentuh disk fisikmu."
+     },
+     {
+      "t": "Jalur B: instalasi ke disk",
+      "d": "Buat flashdisk bootable dari ISO Kali (Rufus atau balenaEtcher), boot dari flashdisk, lalu pilih “Graphical install”. Pilih bahasa, lokasi, dan keyboard."
+     },
+     {
+      "t": "Atur pengguna & partisi",
+      "d": "Tentukan hostname, nama pengguna, dan kata sandi. Pilih “Guided – use entire disk” bila disk memang khusus untuk Kali. Hati-hati, data lama akan terhapus."
+     },
+     {
+      "t": "Pilih software",
+      "d": "Biarkan pilihan bawaan (Xfce dan kumpulan alat standar), lalu pasang GRUB dan restart."
+     },
+     {
+      "t": "Alternatif: WSL di Windows",
+      "d": "Kalau sudah memakai Windows 10/11, kamu bisa memasang Kali lewat WSL.",
+      "code": "wsl --install -d kali-linux"
+     }
+    ],
+    "after": {
+     "t": "Setelah terpasang, perbarui sistem",
+     "code": "sudo apt update && sudo apt full-upgrade -y"
+    },
+    "tips": [
+     "Buat snapshot mesin virtual sebelum bereksperimen supaya mudah dikembalikan.",
+     "Latih keterampilan hanya di lingkungan yang sah, seperti lab sendiri, TryHackMe, atau Hack The Box."
+    ]
+   },
+   "pros": [
+    {
+     "t": "Ratusan alat siap pakai",
+     "d": "Nmap, Wireshark, Metasploit, Burp Suite, dan banyak lagi sudah terpasang, sehingga tidak perlu memasang satu per satu."
+    },
+    {
+     "t": "Standar belajar keamanan",
+     "d": "Dipakai luas dalam pelatihan, kompetisi CTF, dan sertifikasi keamanan, sehingga materi belajarnya sangat banyak."
+    },
+    {
+     "t": "Fleksibel dijalankan",
+     "d": "Bisa di mesin virtual, WSL, perangkat ARM, dan bahkan Android lewat NetHunter."
+    },
+    {
+     "t": "Terus diperbarui",
+     "d": "Model rolling release membuat alat-alat selalu mendapat pembaruan."
+    },
+    {
+     "t": "Dokumentasi resmi",
+     "d": "Tersedia dokumentasi resmi, panduan, dan buku Kali Linux Revealed secara gratis."
+    }
+   ],
+   "cons": [
+    "Bukan untuk penggunaan harian: pengaturan bawaannya ditujukan untuk pengujian.",
+    "Butuh pemahaman dasar jaringan dan Linux; kurang cocok sebagai distro pertama.",
+    "Hanya boleh dipakai pada sistem yang kamu miliki atau yang sudah memberi izin."
+   ],
+   "compare": [
+    "Gratis",
+    "Butuh RAM lebih besar bila banyak alat dijalankan; ideal di VM",
+    "Tinggi, tetapi fokusnya pada alat keamanan",
+    "Kode terbuka; pengaturan bawaan untuk pengujian, bukan untuk sehari-hari",
+    "Alat keamanan lengkap; bukan untuk game atau Office",
+    "Rolling: apt full-upgrade, rilis terjadwal tiap kuartal",
+    "Sedang–tinggi"
+   ],
+   "link": {
+    "label": "kali.org",
+    "url": "https://www.kali.org/get-kali/"
+   }
+  }
+ }
+}
