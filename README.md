@@ -1,1 +1,0 @@
-Ini project untuk Pengaderan BLUG 2026 -- Libre Anchors
