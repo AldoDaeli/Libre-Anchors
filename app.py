@@ -7,7 +7,7 @@ import re
 import time
 from logging.handlers import RotatingFileHandler
 from pathlib import PurePosixPath
-from urllib.parse import quote
+from urllib.parse import parse_qsl, quote, urlencode
 
 from flask import Flask, abort, g, jsonify, redirect, request, send_from_directory
 from werkzeug.exceptions import HTTPException
@@ -64,11 +64,34 @@ def cleanup(conn):
     conn.execute("DELETE FROM users WHERE verified = 0 AND created_at < ?", (now - 86400,))  # pendaftaran tak diverifikasi
 
 
+class RestorePath:
+    """Vercel mengirim PATH tujuan rewrite (/api/index) dan alamat asli ada di query "__p".
+    Dikembalikan di sini (bukan di api/index.py) supaya jalan apa pun file entrypoint yang dipilih Vercel
+    (app.py, wsgi.py, atau api/index.py)."""
+    MARK = "__p"
+
+    def __init__(self, wsgi_app):
+        self.wsgi_app = wsgi_app
+
+    def __call__(self, environ, start_response):
+        if environ.get("PATH_INFO", "").startswith("/api/index"):
+            orig, rest = None, []
+            for k, v in parse_qsl(environ.get("QUERY_STRING", ""), keep_blank_values=True):
+                if k == self.MARK and orig is None:
+                    orig = v
+                else:
+                    rest.append((k, v))
+            environ["PATH_INFO"] = "/" + (orig or "").lstrip("/")
+            environ["QUERY_STRING"] = urlencode(rest)
+        return self.wsgi_app(environ, start_response)
+
+
 def create_app(overrides=None):
     cfg = load_config(overrides)
     app = Flask(__name__, static_folder=None)
     app.config.update(cfg)
     app.json.sort_keys = False
+    app.wsgi_app = RestorePath(app.wsgi_app)
     if cfg["TRUSTED_PROXIES"]:
         n = cfg["TRUSTED_PROXIES"]
         app.wsgi_app = ProxyFix(app.wsgi_app, x_for=n, x_proto=n, x_host=n)
