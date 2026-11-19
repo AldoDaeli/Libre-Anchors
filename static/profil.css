@@ -1,0 +1,22 @@
+.profil-section{padding-top:8rem}
+
+.avatar{
+  width:110px;height:110px;margin:0 auto 1.2rem;border-radius:50%;
+  display:grid;place-items:center;
+  font-family:var(--font-display);font-size:3rem;color:var(--navy);
+  background:linear-gradient(145deg,var(--green),var(--pink));
+  box-shadow:var(--raise);
+}
+.profil-name{font-family:var(--font-display);font-weight:600;font-size:1.6rem;margin-bottom:.2rem;word-break:break-word}
+.profil-email{color:var(--ink-soft);margin:0;word-break:break-all}
+
+#profileForm .form-label{font-weight:700;font-size:.9rem;color:var(--ink);margin-bottom:.4rem}
+#profileForm .form-control{
+  background:var(--base);border:0;border-radius:12px;padding:.85rem 1rem;color:var(--ink);box-shadow:var(--inset);
+  transition:box-shadow .3s,transform .3s;
+}
+#profileForm .form-control::placeholder{color:#9a9d92}
+#profileForm .form-control:focus{box-shadow:var(--inset),0 0 0 3px rgba(241,143,164,.55);transform:translateY(-1px)}
+#profileForm .form-control.is-invalid{background-image:none;box-shadow:var(--inset),0 0 0 2px #d9536b}
+#profileAlert:empty{display:none}
+#profileAlert .alert{border:0;border-radius:12px;font-size:.92rem;margin-bottom:1rem;animation:pop .35s ease both}
