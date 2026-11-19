@@ -231,3 +231,7 @@ a{color:inherit}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
 }
+/* Logo di navbar */
+.navbar-brand.brand{display:inline-flex;align-items:center;gap:.65rem}
+.brand-logo{width:40px;height:40px;object-fit:contain;flex:none}
+.brand-text{display:block}
