@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tuxpedia – Kenalan dengan Linux</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Belleza&family=Pixelify+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="landing.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===== Navbar ===== -->
+<nav class="navbar navbar-expand-lg fixed-top site-nav nav-hidden" id="siteNav">
+  <div class="container">
+    <div class="nav-shell">
+      <a class="navbar-brand brand" href="#beranda">Tuxpedia<small>Kenalan dengan Linux</small></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Buka menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link active" href="#beranda" aria-current="page">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="profil.html">Profil</a></li>
+        </ul>
+        <div class="auth-area d-flex align-items-center gap-2">
+          <a href="login.html" class="btn btn-main btn-sm-pill" id="btnMasuk">MASUK</a>
+          <div class="d-none align-items-center gap-3" id="userBox">
+            <span class="user-name" id="userName"></span>
+            <button type="button" class="btn btn-ghost btn-sm-pill" id="btnKeluar">KELUAR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main>
+<!-- ===== Beranda ===== -->
+<section class="hero" id="beranda">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <h1 class="hero-title">Bebas.<br>Terbuka.<br>Milikmu.</h1>
+        <p class="hero-sub">Linux adalah sistem operasi open source yang menjalankan server, ponsel, sampai superkomputer. Kenali dasarnya, lalu coba sendiri.</p>
+        <div class="tip">
+          <span class="badge-v">L</span>
+          <div><strong>Tahukah kamu?</strong><span>Android dibangun di atas kernel Linux</span></div>
+        </div>
+        <div class="d-flex flex-wrap align-items-center gap-4 mt-4">
+          <a href="#about" class="btn btn-main">MULAI BELAJAR</a>
+          <a href="#contact" class="link-arrow">Hubungi kami <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="pol-wrap">
+          <div class="pol-stage" id="stage" role="group" aria-label="Galeri distro Linux yang berganti otomatis"></div>
+          <div class="pol-dots" id="dots"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== About ===== -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="panel">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-5">
+          <figure class="frame"><img src="img/linux-essentials.jpg" alt="Buku panduan pemula Linux" loading="lazy"></figure>
+        </div>
+        <div class="col-lg-7">
+          <h2 class="section-title">Apa itu Linux?</h2>
+          <p class="lead-text">Linux adalah kernel, inti dari sebuah sistem operasi, yang pertama kali dirilis oleh Linus Torvalds pada 1991. Kernel ini digabung dengan perangkat lunak lain menjadi sistem operasi lengkap yang disebut distro.</p>
+          <p class="lead-text">Kodenya terbuka, sehingga siapa pun boleh mempelajari, mengubah, dan membagikannya. Maskotnya adalah penguin bernama Tux.</p>
+        </div>
+      </div>
+      <div class="row g-4 mt-2">
+        <div class="col-md-4"><div class="feat"><h3>Open source</h3><p>Kode sumber terbuka dan gratis. Komunitas di seluruh dunia ikut memperbaiki dan mengembangkannya.</p></div></div>
+        <div class="col-md-4"><div class="feat"><h3>Banyak distro</h3><p>Dari yang ramah pemula sampai yang bisa dikustom habis-habisan. Kamu bebas memilih.</p></div></div>
+        <div class="col-md-4"><div class="feat"><h3>Ada di mana-mana</h3><p>Dipakai di server web, perangkat Android, dan hampir semua superkomputer di daftar TOP500.</p></div></div>
+      </div>
+    </div>
+
+    <h2 class="section-title mt-5 pt-3">Distro populer</h2>
+    <p class="lead-text mb-4">Distro adalah “rasa” Linux yang dikemas siap pakai. Ini enam yang sering jadi pilihan.</p>
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-4"><a class="dcard-link" href="distro.html?d=ubuntu"><article class="dcard"><img src="img/tux-ubuntu.jpg" alt="Tux memegang CD Ubuntu" loading="lazy" style="object-position:50% 40%"><div class="dbody"><div class="dhead"><h3>Ubuntu</h3><span class="tag">Pemula</span></div><p>Pilihan populer untuk pemula: instalasi mudah, komunitas besar, dan banyak panduan.</p><span class="more"><span class="more-open">Pelajari selengkapnya <span aria-hidden="true">→</span></span><span class="more-lock">🔒 Masuk untuk membaca <span aria-hidden="true">→</span></span></span></div></article></a></div>
+      <div class="col-sm-6 col-lg-4"><a class="dcard-link" href="distro.html?d=mint"><article class="dcard"><img src="img/tux-mint.jpg" alt="Tux memegang CD Linux Mint" loading="lazy" style="object-position:50% 62%"><div class="dbody"><div class="dhead"><h3>Linux Mint</h3><span class="tag">Pemula</span></div><p>Tampilannya akrab bagi pengguna Windows, stabil dan nyaman dipakai sehari-hari.</p><span class="more"><span class="more-open">Pelajari selengkapnya <span aria-hidden="true">→</span></span><span class="more-lock">🔒 Masuk untuk membaca <span aria-hidden="true">→</span></span></span></div></article></a></div>
+      <div class="col-sm-6 col-lg-4"><a class="dcard-link" href="distro.html?d=debian"><article class="dcard"><img src="img/debian-lain.jpg" alt="Karakter anime memakai laptop berlogo Debian" loading="lazy" style="object-position:50% 35%"><div class="dbody"><div class="dhead"><h3>Debian</h3><span class="tag">Stabil</span></div><p>Dikenal sangat stabil. Banyak distro lain, termasuk Ubuntu, dibangun di atasnya.</p><span class="more"><span class="more-open">Pelajari selengkapnya <span aria-hidden="true">→</span></span><span class="more-lock">🔒 Masuk untuk membaca <span aria-hidden="true">→</span></span></span></div></article></a></div>
+      <div class="col-sm-6 col-lg-4"><a class="dcard-link" href="distro.html?d=fedora"><article class="dcard"><img src="img/fedora.jpg" alt="Logo Fedora dengan ilustrasi karakter anime" loading="lazy"><div class="dbody"><div class="dhead"><h3>Fedora</h3><span class="tag">Terbaru</span></div><p>Mengusung teknologi terbaru dengan tetap rapi dan stabil, didukung komunitas dan Red Hat.</p><span class="more"><span class="more-open">Pelajari selengkapnya <span aria-hidden="true">→</span></span><span class="more-lock">🔒 Masuk untuk membaca <span aria-hidden="true">→</span></span></span></div></article></a></div>
+      <div class="col-sm-6 col-lg-4"><a class="dcard-link" href="distro.html?d=arch"><article class="dcard"><img src="img/tux-arch.jpg" alt="Tux memegang CD Arch Linux" loading="lazy" style="object-position:50% 40%"><div class="dbody"><div class="dhead"><h3>Arch Linux</h3><span class="tag">Mahir</span></div><p>Ringan dan fleksibel. Cocok bagi yang ingin merakit sistemnya sendiri sambil belajar.</p><span class="more"><span class="more-open">Pelajari selengkapnya <span aria-hidden="true">→</span></span><span class="more-lock">🔒 Masuk untuk membaca <span aria-hidden="true">→</span></span></span></div></article></a></div>
+      <div class="col-sm-6 col-lg-4"><a class="dcard-link" href="distro.html?d=kali"><article class="dcard"><img src="img/kali.jpg" alt="Logo Kali Linux di depan bulan" loading="lazy"><div class="dbody"><div class="dhead"><h3>Kali Linux</h3><span class="tag">Keamanan</span></div><p>Dibuat khusus untuk pengujian keamanan. Cocok untuk belajar keamanan siber.</p><span class="more"><span class="more-open">Pelajari selengkapnya <span aria-hidden="true">→</span></span><span class="more-lock">🔒 Masuk untuk membaca <span aria-hidden="true">→</span></span></span></div></article></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="panel">
+      <div class="row g-5">
+        <div class="col-lg-5">
+          <h2 class="section-title">Ada pertanyaan?</h2>
+          <p class="lead-text">Tanyakan soal instalasi, memilih distro, atau sekadar ingin ngobrol tentang Linux. Kami balas secepatnya.</p>
+          <p class="info"><strong>Email</strong><br>halo@tuxpedia.id</p>
+        </div>
+        <div class="col-lg-7">
+          <form id="contactForm" novalidate>
+            <div id="contactAlert" role="status"></div>
+            <div class="row g-3">
+              <div class="col-md-6"><input type="text" name="nama" class="form-control" placeholder="Nama" aria-label="Nama" autocomplete="name" required></div>
+              <div class="col-md-6"><input type="email" name="email" class="form-control" placeholder="Email" aria-label="Email" autocomplete="email" required></div>
+              <div class="col-12"><textarea name="pesan" rows="4" class="form-control" placeholder="Pesan" aria-label="Pesan" required></textarea></div>
+            </div>
+            <button type="submit" class="btn btn-main mt-3">KIRIM PESAN</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===== Footer + navigasi ke atas ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-bar">
+      <a class="brand" href="#beranda">Tuxpedia</a>
+      <nav class="foot-links" aria-label="Navigasi bawah">
+        <a href="#beranda">Beranda</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="profil.html">Profil</a>
+      </nav>
+      <button type="button" class="btn btn-ghost btn-sm-pill" data-top>KEMBALI KE ATAS <span aria-hidden="true">↑</span></button>
+    </div>
+    <p class="copy">© 2026 Tuxpedia. Linux® adalah merek dagang Linus Torvalds.</p>
+  </div>
+</footer>
+
+<button type="button" class="to-top" id="toTop" data-top aria-label="Kembali ke atas">↑</button>
+<div class="toast-soon" id="toastSoon" role="status" aria-live="polite"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="api.js"></script>
+<script src="motion.js"></script>
+<script src="landing.js"></script>
+</body>
+</html>
