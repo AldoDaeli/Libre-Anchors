@@ -20,11 +20,12 @@ html{scroll-padding-top:150px}
 
 /* ---------- Tab bagian (menempel di bawah navbar) ---------- */
 .dp-tabs-wrap{position:sticky;top:5.5rem;z-index:20;padding:.4rem 0 .6rem;pointer-events:none}
-.dp-tabs{pointer-events:auto;display:flex;gap:.2rem;width:fit-content;max-width:100%;overflow-x:auto;padding:.4rem;border-radius:999px;background:rgba(243,241,231,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:var(--raise);scrollbar-width:none}
+.dp-tabs{position:relative;pointer-events:auto;display:flex;gap:.2rem;width:fit-content;max-width:100%;overflow-x:auto;padding:.4rem;border-radius:999px;background:rgba(243,241,231,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:var(--raise);scrollbar-width:none}
 .dp-tabs::-webkit-scrollbar{display:none}
-.dp-tabs a{white-space:nowrap;text-decoration:none;color:var(--ink-soft);padding:.5rem 1.1rem;border-radius:999px;font-size:.95rem;transition:color .25s,box-shadow .3s}
+.dp-tabs a{position:relative;z-index:1;white-space:nowrap;text-decoration:none;color:var(--ink-soft);padding:.5rem 1.1rem;border-radius:999px;font-size:.95rem;transition:color .25s,box-shadow .3s}
 .dp-tabs a:hover{color:var(--ink)}
 .dp-tabs a.active{color:var(--ink);box-shadow:var(--inset)}
+.dp-tabs.has-pill a.active{box-shadow:none}
 .dp-tabs a:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
 
 /* ---------- Bagian isi ---------- */

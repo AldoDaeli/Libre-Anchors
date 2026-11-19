@@ -1,27 +1,39 @@
-(() => {
+(async () => {
   'use strict';
-
-  const SESSION_KEY = 'session';
-  const read = (key) => { try { return JSON.parse(localStorage.getItem(key)); } catch { return null; } };
-
-  /* ----- Wajib login: kalau belum, ke halaman masuk lalu kembali ke sini ----- */
-  const session = read(SESSION_KEY);
-  if (!session || !session.email) {
-    window.location.replace('login.html?next=' + encodeURIComponent('distro.html' + window.location.search));
-    return;
-  }
-
-  /* ----- Navbar: nama & keluar ----- */
-  document.getElementById('userName').textContent = `Halo, ${session.name}`;
-  document.getElementById('btnKeluar').addEventListener('click', () => {
-    try { localStorage.removeItem(SESSION_KEY); } catch { /* abaikan */ }
-    window.location.href = 'landing.html';
-  });
 
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const app = document.getElementById('app');
-  const key = new URLSearchParams(window.location.search).get('d');
-  const d = window.DISTRO_DATA && window.DISTRO_DATA[key];
+  const key = new URLSearchParams(window.location.search).get('d') || '';
+
+  /* Belum login (atau sesi habis): ke halaman masuk lalu kembali ke sini. Server tetap memeriksa di setiap permintaan. */
+  const toLogin = () =>
+    window.location.replace('login.html?next=' + encodeURIComponent('distro.html' + window.location.search));
+
+  /* ----- Ambil pengguna + isi materi dari API (materi hanya dikirim server ke pengguna yang login) ----- */
+  let user, resp = null;
+  try {
+    user = await api.me();
+    if (!user) return toLogin();
+    if (/^[a-z0-9-]{1,30}$/i.test(key)) resp = await api.get('/api/distro/' + encodeURIComponent(key));
+  } catch (e) {
+    if (e.status === 401) return toLogin();
+    if (e.status !== 404) {
+      app.innerHTML = `<section class="dp-empty"><div class="container"><div class="panel">
+        <h1 class="section-title">Gagal memuat</h1><p class="lead-text">${esc(e.message)}</p>
+        <a class="btn btn-main" href="landing.html">KEMBALI</a></div></div></section>`;
+      app.hidden = false;
+      return;
+    }
+  }
+
+  /* ----- Navbar: nama & keluar ----- */
+  document.getElementById('userName').textContent = `Halo, ${user.name}`;
+  document.getElementById('btnKeluar').addEventListener('click', async () => {
+    await api.logout();
+    window.location.href = 'landing.html';
+  });
+
+  const d = resp && resp.distro;
 
   /* ----- Distro tidak ditemukan ----- */
   if (!d) {
@@ -46,7 +58,7 @@
     ['instalasi', 'Cara install'], ['kelebihan', 'Kelebihan'], ['perbandingan', 'Dibanding OS lain']
   ];
 
-  const cmp = window.OS_COMPARE;
+  const cmp = resp.compare;
   const cmpRows = cmp.rows.map((row, i) => `<tr>
       <th scope="row">${esc(row)}</th>
       <td>${esc(cmp.windows[i])}</td>
@@ -54,10 +66,8 @@
       <td class="me">${esc(d.compare[i])}</td>
     </tr>`).join('');
 
-  const others = window.DISTRO_ORDER.filter(k => k !== key).map(k => {
-    const o = window.DISTRO_DATA[k];
-    return `<a href="distro.html?d=${encodeURIComponent(k)}">${esc(o.name)} <span>${esc(o.tag)}</span></a>`;
-  }).join('');
+  const others = resp.others.map(o =>
+    `<a href="distro.html?d=${encodeURIComponent(o.key)}">${esc(o.name)} <span>${esc(o.tag)}</span></a>`).join('');
 
   app.innerHTML = `
   <section class="dp-hero">
@@ -168,15 +178,31 @@
 
   /* ----- Tab aktif mengikuti posisi gulir ----- */
   const tabs = [...document.querySelectorAll('[data-tab]')];
-  const setActive = id => tabs.forEach(a => {
-    const on = a.dataset.tab === id;
-    a.classList.toggle('active', on);
-    if (on) { a.setAttribute('aria-current', 'true'); a.scrollIntoView({ block: 'nearest', inline: 'center' }); }
-    else a.removeAttribute('aria-current');
-  });
+  const tabPill = window.NavPill ? window.NavPill(document.querySelector('.dp-tabs'), '[data-tab]') : null;
+  let lockSpy = false;
+  const setActive = id => {
+    let active = null;
+    tabs.forEach(a => {
+      const on = a.dataset.tab === id;
+      a.classList.toggle('active', on);
+      if (on) { active = a; a.setAttribute('aria-current', 'true'); }
+      else a.removeAttribute('aria-current');
+    });
+    if (tabPill) tabPill.set(active);
+    if (active) {
+      const bar = active.parentElement;
+      bar.scrollTo({ left: active.offsetLeft - (bar.clientWidth - active.offsetWidth) / 2, behavior: 'smooth' });
+    }
+  };
   const spy = new IntersectionObserver(entries => {
+    if (lockSpy) return;
     entries.forEach(en => { if (en.isIntersecting) setActive(en.target.id); });
   }, { rootMargin: '-30% 0px -60% 0px' });
+  document.addEventListener('smoothscroll:start', e => {
+    lockSpy = true;
+    if (e.detail && sections.some(([id]) => id === e.detail.id)) setActive(e.detail.id);
+  });
+  document.addEventListener('smoothscroll:end', () => { lockSpy = false; });
   sections.forEach(([id]) => spy.observe(document.getElementById(id)));
 
   /* ----- Buka dari tautan dengan #bagian ----- */

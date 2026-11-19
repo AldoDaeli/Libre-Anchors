@@ -1,39 +1,48 @@
 (() => {
   'use strict';
 
-  /* ===== Status login (dibuat oleh app.js di halaman login) ===== */
-  const SESSION_KEY = 'session';
-  const getSession = () => {
-    try { return JSON.parse(localStorage.getItem(SESSION_KEY)); } catch { return null; }
-  };
+  /* ===== Status login (sesi = cookie HttpOnly di server; ditanyakan lewat API) ===== */
   const btnMasuk = document.getElementById('btnMasuk');
   const userBox  = document.getElementById('userBox');
   const userName = document.getElementById('userName');
 
-  const renderAuth = () => {
-    const s = getSession();
-    document.body.classList.toggle('guest', !s);
-    btnMasuk.classList.toggle('d-none', !!s);
-    userBox.classList.toggle('d-none', !s);
-    userName.textContent = s ? `Halo, ${s.name}` : '';
+  const renderAuth = user => {
+    document.body.classList.toggle('guest', !user);
+    btnMasuk.classList.toggle('d-none', !!user);
+    userBox.classList.toggle('d-none', !user);
+    userName.textContent = user ? `Halo, ${user.name}` : '';
   };
-  document.getElementById('btnKeluar').addEventListener('click', () => {
-    try { localStorage.removeItem(SESSION_KEY); } catch { /* abaikan */ }
-    renderAuth();
+  document.getElementById('btnKeluar').addEventListener('click', async () => {
+    await api.logout();
+    renderAuth(null);
   });
-  renderAuth();
+  renderAuth(null);
+  api.me().then(renderAuth).catch(() => { /* server tak terjangkau: tampil sebagai tamu */ });
 
   /* ===== Menu aktif sesuai posisi scroll ===== */
   const links = [...document.querySelectorAll('.site-nav .nav-link')];
-  const setActive = id => links.forEach(a => {
-    const on = a.getAttribute('href') === '#' + id;
-    a.classList.toggle('active', on);
-    on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current');
-  });
+  const pill = window.NavPill ? window.NavPill(document.querySelector('.site-nav .navbar-nav'), '.nav-link') : null;
+  let lockSpy = false; // saat animasi scroll karena klik menu, jangan loncat-loncat lewat bagian lain
+  const setActive = id => {
+    let active = null;
+    links.forEach(a => {
+      const on = a.getAttribute('href') === '#' + id;
+      if (on) active = a;
+      a.classList.toggle('active', on);
+      on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current');
+    });
+    if (pill) pill.set(active);
+  };
   const spy = new IntersectionObserver(entries => {
+    if (lockSpy) return;
     entries.forEach(e => e.isIntersecting && setActive(e.target.id));
   }, { rootMargin: '-45% 0px -50% 0px' });
   ['beranda', 'about', 'contact'].forEach(id => spy.observe(document.getElementById(id)));
+  document.addEventListener('smoothscroll:start', e => {
+    lockSpy = true;
+    if (e.detail && ['beranda', 'about', 'contact'].includes(e.detail.id)) setActive(e.detail.id); // pil langsung meluncur ke tujuan
+  });
+  document.addEventListener('smoothscroll:end', () => { lockSpy = false; });
 
   /* ===== Navbar: garis bawah saat di-scroll + tutup menu mobile ===== */
   const nav = document.getElementById('siteNav');
@@ -42,26 +51,33 @@
 
   /* ===== Navbar: tersembunyi di paling atas, muncul beranimasi saat digulir ===== */
   const SHOW_AFTER = 60;   // px gulir sebelum navbar muncul
-  let peek = false, peekTimer;
+  const HIDE_BELOW = 20;   // baru sembunyi lagi di bawah ini (hysteresis: tidak kedip di sekitar batas)
+  let peek = false, peekTimer, shownByScroll = window.scrollY > SHOW_AFTER, ticking = false;
   const updateNav = () => {
-    const hide = window.scrollY <= SHOW_AFTER && !peek && !menu.classList.contains('show');
-    nav.classList.toggle('nav-hidden', hide);
+    const y = window.scrollY;
+    if (y > SHOW_AFTER) shownByScroll = true; else if (y < HIDE_BELOW) shownByScroll = false;
+    nav.classList.toggle('nav-hidden', !(shownByScroll || peek || menu.classList.contains('show')));
+    nav.classList.toggle('scrolled', y > 10);
   };
   const peekNav = (ms) => {            // munculkan sementara saat masih di atas
     peek = true; updateNav();
     clearTimeout(peekTimer);
     if (ms) peekTimer = setTimeout(() => { peek = false; updateNav(); }, ms);
   };
-  window.addEventListener('scroll', updateNav, { passive: true });
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { ticking = false; updateNav(); });
+  }, { passive: true });
   menu.addEventListener('hidden.bs.collapse', updateNav);
   // Mouse mendekati tepi atas / tombol Tab / ketuk tepi atas layar = tampilkan sementara
   document.addEventListener('mousemove', e => {
-    if (window.scrollY > SHOW_AFTER) return;
+    if (shownByScroll) return;
     if (e.clientY < 48) peekNav();
     else if (peek && e.clientY > nav.getBoundingClientRect().bottom + 24) { peek = false; updateNav(); }
   }, { passive: true });
   document.addEventListener('pointerdown', e => {
-    if (e.pointerType !== 'mouse' && e.clientY < 64 && window.scrollY <= SHOW_AFTER) peekNav(4500);
+    if (e.pointerType !== 'mouse' && e.clientY < 64 && !shownByScroll) peekNav(4500);
   }, { passive: true });
   nav.addEventListener('focusin', () => peekNav());
   nav.addEventListener('focusout', e => { if (!nav.contains(e.relatedTarget)) { peek = false; updateNav(); } });
@@ -87,7 +103,7 @@
   const toTop = document.getElementById('toTop');
   window.addEventListener('scroll', () => toTop.classList.toggle('show', window.scrollY > 600), { passive: true });
   document.querySelectorAll('[data-top]').forEach(b =>
-    b.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })));
+    b.addEventListener('click', () => (window.smoothScrollTo ? window.smoothScrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' }))));
 
 
   /* ===== Kartu polaroid: foto distro berganti otomatis tiap 3 detik ===== */
@@ -166,24 +182,30 @@
     else if (idx >= 0) play();
   });
 
-  /* ===== Form kontak (statis: belum terhubung ke server) ===== */
+  /* ===== Form kontak (dikirim ke server) ===== */
   const form = document.getElementById('contactForm');
   const alertBox = document.getElementById('contactAlert');
-  form.addEventListener('submit', e => {
+  const showMsg = (type, text) => {
+    alertBox.innerHTML = '';
+    const el = document.createElement('div');
+    el.className = `alert alert-${type}`;
+    el.textContent = text;
+    alertBox.appendChild(el);
+  };
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     const fields = form.querySelectorAll('.form-control');
     fields.forEach(f => f.classList.toggle('is-invalid', !f.checkValidity()));
-    alertBox.innerHTML = '';
-    const el = document.createElement('div');
-    if (!form.checkValidity()) {
-      el.className = 'alert alert-danger';
-      el.textContent = 'Lengkapi nama, email yang valid, dan pesan.';
-    } else {
-      el.className = 'alert alert-success';
-      el.textContent = 'Terima kasih! Pesanmu sudah kami terima.';
+    if (!form.checkValidity()) return showMsg('danger', 'Lengkapi nama, email yang valid, dan pesan.');
+    const btn = form.querySelector('button[type=submit]');
+    btn.disabled = true;
+    try {
+      await api.post('/api/contact', { name: form.elements.nama.value, email: form.elements.email.value, message: form.elements.pesan.value });
+      showMsg('success', 'Terima kasih! Pesanmu sudah kami terima.');
       form.reset();
-    }
-    alertBox.appendChild(el);
+    } catch (err) {
+      showMsg('danger', err.message);
+    } finally { btn.disabled = false; }
   });
   form.querySelectorAll('.form-control').forEach(f =>
     f.addEventListener('input', () => f.classList.toggle('is-invalid', f.value !== '' && !f.checkValidity())));
