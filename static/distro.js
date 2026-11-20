@@ -3,11 +3,11 @@
 
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const app = document.getElementById('app');
-  const key = new URLSearchParams(window.location.search).get('d') || '';
+  const key = window.location.pathname.split('/').filter(Boolean).pop() || '';  // /distro/<kunci>
 
   /* Belum login (atau sesi habis): ke halaman masuk lalu kembali ke sini. Server tetap memeriksa di setiap permintaan. */
   const toLogin = () =>
-    window.location.replace('login.html?next=' + encodeURIComponent('distro.html' + window.location.search));
+    window.location.replace('/login');
 
   /* ----- Ambil pengguna + isi materi dari API (materi hanya dikirim server ke pengguna yang login) ----- */
   let user, resp = null;
@@ -20,7 +20,7 @@
     if (e.status !== 404) {
       app.innerHTML = `<section class="dp-empty"><div class="container"><div class="panel">
         <h1 class="section-title">Gagal memuat</h1><p class="lead-text">${esc(e.message)}</p>
-        <a class="btn btn-main" href="landing.html">KEMBALI</a></div></div></section>`;
+        <a class="btn btn-main" href="/">KEMBALI</a></div></div></section>`;
       app.hidden = false;
       return;
     }
@@ -30,7 +30,7 @@
   document.getElementById('userName').textContent = `Halo, ${user.name}`;
   document.getElementById('btnKeluar').addEventListener('click', async () => {
     await api.logout();
-    window.location.href = 'landing.html';
+    window.location.href = '/';
   });
 
   const d = resp && resp.distro;
@@ -41,7 +41,7 @@
     app.innerHTML = `<section class="dp-empty"><div class="container"><div class="panel">
       <h1 class="section-title">Distro tidak ditemukan</h1>
       <p class="lead-text">Halaman yang kamu cari belum ada. Pilih salah satu distro populer di beranda.</p>
-      <a class="btn btn-main" href="landing.html#about">KEMBALI KE DAFTAR DISTRO</a>
+      <a class="btn btn-main" href="/#about">KEMBALI KE DAFTAR DISTRO</a>
     </div></div></section>`;
     app.hidden = false;
     return;
@@ -67,14 +67,14 @@
     </tr>`).join('');
 
   const others = resp.others.map(o =>
-    `<a href="distro.html?d=${encodeURIComponent(o.key)}">${esc(o.name)} <span>${esc(o.tag)}</span></a>`).join('');
+    `<a href="/distro/${encodeURIComponent(o.key)}">${esc(o.name)} <span>${esc(o.tag)}</span></a>`).join('');
 
   app.innerHTML = `
   <section class="dp-hero">
     <div class="container">
       <nav class="crumb" aria-label="Jejak halaman">
-        <a href="landing.html#beranda">Beranda</a><span aria-hidden="true">›</span>
-        <a href="landing.html#about">Distro populer</a><span aria-hidden="true">›</span>
+        <a href="/#beranda">Beranda</a><span aria-hidden="true">›</span>
+        <a href="/#about">Distro populer</a><span aria-hidden="true">›</span>
         <b aria-current="page">${esc(d.name)}</b>
       </nav>
       <div class="dp-hero-grid">
@@ -88,7 +88,7 @@
             <a class="link-arrow" href="${esc(d.link.url)}" target="_blank" rel="noopener noreferrer">Situs resmi ${esc(d.link.label)} <span aria-hidden="true">↗</span></a>
           </div>
         </div>
-        <figure class="frame dp-frame"><img src="${esc(d.img)}" alt="${esc(d.alt)}" style="object-position:${esc(d.pos)}"></figure>
+        <figure class="frame dp-frame"><img src="/${esc(d.img)}" alt="${esc(d.alt)}" style="object-position:${esc(d.pos)}"></figure>
       </div>
     </div>
   </section>
