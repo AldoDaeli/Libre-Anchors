@@ -1,4 +1,3 @@
-"""Tuxpedia: aplikasi Flask. Jalankan:  flask --app app run   (atau: python app.py)"""
 import json
 import logging
 import os
@@ -7,7 +6,6 @@ import re
 import time
 from logging.handlers import RotatingFileHandler
 from pathlib import PurePosixPath
-from urllib.parse import parse_qsl, quote, urlencode
 
 from flask import Flask, abort, g, jsonify, redirect, request, send_from_directory
 from werkzeug.exceptions import HTTPException
@@ -18,29 +16,31 @@ from auth import bp as api_bp, cookie_names, err, load_session
 from config import load_config
 from security import csrf_valid
 
-# Hanya file statis dengan ekstensi ini yang boleh dilayani (kode .py, .db, .env, dll. tidak akan pernah terkirim).
 ALLOWED_EXT = {".html", ".css", ".js", ".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".ico", ".woff2", ".txt"}
-# Halaman yang butuh login: dicek di SERVER, bukan hanya di JavaScript.
-PROTECTED_PAGES = {"profil.html", "distro.html"}
+PAGES = {"": "landing.html", "login": "login.html", "register": "login.html"}
+PROTECTED = {"profil": "profil.html"}          
+LEGACY = {"landing.html": "/", "index.html": "/", "login.html": "/login", "profil.html": "/profil"}
+DISTRO_KEY = re.compile(r"[a-z0-9-]{1,30}")
+NEXT_OK = re.compile(r"/(profil|distro/[a-z0-9-]{1,30})")  
 
 CSP = "; ".join([
     "default-src 'self'",
-    "script-src 'self' https://cdn.jsdelivr.net",          # tanpa 'unsafe-inline': XSS lewat inline script diblokir
+    "script-src 'self' https://cdn.jsdelivr.net",          
     "style-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com",
-    "style-src-attr 'unsafe-inline'",                        # hanya atribut style=""; <style> inline tetap diblokir
+    "style-src-attr 'unsafe-inline'",                        
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data:",
     "connect-src 'self'",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
-    "frame-ancestors 'none'",                                # anti-clickjacking
+    "frame-ancestors 'none'",                                
 ])
 
 
 def setup_logging(app):
     fmt = logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
-    handlers = [logging.StreamHandler()]  # stdout/stderr -> Vercel Logs
+    handlers = [logging.StreamHandler()] 
     if app.config["LOG_TO_FILE"]:
         try:
             handlers.append(RotatingFileHandler(app.config["INSTANCE_DIR"] / "security.log", maxBytes=1_000_000, backupCount=5, encoding="utf-8"))
@@ -61,29 +61,7 @@ def cleanup(conn):
     conn.execute("DELETE FROM otps WHERE expires_at < ?", (now,))
     conn.execute("DELETE FROM sessions WHERE expires_at < ?", (now,))
     conn.execute("DELETE FROM rate_limits WHERE window_start < ?", (now - 86400,))
-    conn.execute("DELETE FROM users WHERE verified = 0 AND created_at < ?", (now - 86400,))  # pendaftaran tak diverifikasi
-
-
-class RestorePath:
-    """Vercel mengirim PATH tujuan rewrite (/api/index) dan alamat asli ada di query "__p".
-    Dikembalikan di sini (bukan di api/index.py) supaya jalan apa pun file entrypoint yang dipilih Vercel
-    (app.py, wsgi.py, atau api/index.py)."""
-    MARK = "__p"
-
-    def __init__(self, wsgi_app):
-        self.wsgi_app = wsgi_app
-
-    def __call__(self, environ, start_response):
-        if environ.get("PATH_INFO", "").startswith("/api/index"):
-            orig, rest = None, []
-            for k, v in parse_qsl(environ.get("QUERY_STRING", ""), keep_blank_values=True):
-                if k == self.MARK and orig is None:
-                    orig = v
-                else:
-                    rest.append((k, v))
-            environ["PATH_INFO"] = "/" + (orig or "").lstrip("/")
-            environ["QUERY_STRING"] = urlencode(rest)
-        return self.wsgi_app(environ, start_response)
+    conn.execute("DELETE FROM users WHERE verified = 0 AND created_at < ?", (now - 86400,))  
 
 
 def create_app(overrides=None):
@@ -91,7 +69,6 @@ def create_app(overrides=None):
     app = Flask(__name__, static_folder=None)
     app.config.update(cfg)
     app.json.sort_keys = False
-    app.wsgi_app = RestorePath(app.wsgi_app)
     if cfg["TRUSTED_PROXIES"]:
         n = cfg["TRUSTED_PROXIES"]
         app.wsgi_app = ProxyFix(app.wsgi_app, x_for=n, x_proto=n, x_host=n)
@@ -108,10 +85,9 @@ def create_app(overrides=None):
 
     allowed_hosts = {h.strip().lower() for h in os.getenv("ALLOWED_HOSTS", "").split(",") if h.strip()}
 
-    # ------------------------------------------------------------------ sebelum tiap request
     @app.before_request
     def guard():
-        if allowed_hosts and request.host.lower() not in allowed_hosts:  # cegah Host header attack
+        if allowed_hosts and request.host.lower() not in allowed_hosts: 
             abort(400)
         load_session()
         if random.random() < 0.02:
@@ -129,7 +105,6 @@ def create_app(overrides=None):
             if not csrf_valid(cfg["SECRET_KEY"], request.cookies.get(cookie_names()[1]), request.headers.get("X-CSRF-Token")):
                 return err("csrf", "Token keamanan tidak valid. Muat ulang halaman lalu coba lagi.", 403)
 
-    # ------------------------------------------------------------------ setelah tiap request
     @app.after_request
     def harden(resp):
         sid_name = cookie_names()[0]
@@ -153,32 +128,58 @@ def create_app(overrides=None):
             h["Cache-Control"] = "no-store"
         return resp
 
-    # ------------------------------------------------------------------ halaman & file statis
-    @app.get("/")
-    def index():
-        return redirect("/landing.html")
+    def page(filename, protected=False, nxt="/"):
+        if protected and not g.user:
+            resp = redirect("/login")
+            resp.set_cookie("nx", nxt, max_age=600, httponly=True, secure=cfg["COOKIE_SECURE"], samesite="Lax", path="/")
+            resp.headers["Cache-Control"] = "no-store"
+            return resp
+        resp = send_from_directory(cfg["STATIC_DIR"], filename, max_age=0)
+        resp.headers["Cache-Control"] = "no-store" if protected else "no-cache"
+        return resp
+
+    @app.get("/", strict_slashes=False)
+    def home():
+        return page("landing.html")
+
+    @app.get("/login", strict_slashes=False)
+    @app.get("/register", strict_slashes=False)
+    def auth_page():
+        return page("login.html")
+
+    @app.get("/profil", strict_slashes=False)
+    def profil_page():
+        return page("profil.html", protected=True, nxt="/profil")
+
+    @app.get("/distro/<key>", strict_slashes=False)
+    def distro_page(key):
+        if not DISTRO_KEY.fullmatch(key):
+            abort(404)
+        return page("distro.html", protected=True, nxt=f"/distro/{key}")
+
+    @app.get("/go")
+    def go():
+        """Setelah login: arahkan ke halaman yang tadi dituju. Hanya tujuan dari daftar ketat (anti open redirect)."""
+        dest = request.cookies.get("nx", "")
+        resp = redirect(dest if NEXT_OK.fullmatch(dest) else "/")
+        resp.delete_cookie("nx", path="/")
+        resp.headers["Cache-Control"] = "no-store"
+        return resp
 
     @app.get("/<path:filename>")
     def static_files(filename):
+        if filename in LEGACY:
+            return redirect(LEGACY[filename])
+        if filename == "distro.html":
+            d = request.args.get("d", "")
+            return redirect(f"/distro/{d}" if DISTRO_KEY.fullmatch(d) else "/#about")
         p = PurePosixPath(filename)
-        if any(part.startswith(".") for part in p.parts) or p.suffix.lower() not in ALLOWED_EXT:
+        if any(part.startswith(".") for part in p.parts) or p.suffix.lower() not in ALLOWED_EXT or p.suffix.lower() == ".html":
             abort(404)
-        if filename in PROTECTED_PAGES and not g.user:
-            q = request.query_string.decode("latin-1")
-            nxt = filename + (("?" + q) if q else "")
-            if not re.fullmatch(r"[a-z0-9_-]+\.html(\?[a-z0-9_=&-]*)?", nxt, re.I):
-                nxt = "landing.html"
-            return redirect("/login.html?next=" + quote(nxt, safe=""))
         resp = send_from_directory(cfg["STATIC_DIR"], filename, max_age=0)  # send_from_directory menolak path traversal
-        if filename in PROTECTED_PAGES:
-            resp.headers["Cache-Control"] = "no-store"
-        elif p.suffix.lower() in (".html", ".js", ".css"):
-            resp.headers["Cache-Control"] = "no-cache"
-        else:
-            resp.headers["Cache-Control"] = "public, max-age=3600"
+        resp.headers["Cache-Control"] = "no-cache" if p.suffix.lower() in (".js", ".css") else "public, max-age=3600"
         return resp
 
-    # ------------------------------------------------------------------ error: tidak pernah membocorkan detail internal
     @app.errorhandler(HTTPException)
     def http_error(e):
         if request.path.startswith("/api/"):
@@ -189,14 +190,12 @@ def create_app(overrides=None):
 
     @app.errorhandler(Exception)
     def unhandled(e):
-        log.exception("Kesalahan tak terduga")  # detail hanya di log server
+        log.exception("Kesalahan tak terduga")
         if request.path.startswith("/api/"):
             return err("server_error", "Terjadi kesalahan di server.", 500)
         return ("500 Internal Server Error", 500)
 
     return app
 
-
 if __name__ == "__main__":
-    # Hanya untuk development. Production: gunicorn di belakang nginx (lihat README). Debug sengaja TIDAK diaktifkan.
     create_app().run(host="127.0.0.1", port=int(os.getenv("PORT", "5000")), debug=False)
