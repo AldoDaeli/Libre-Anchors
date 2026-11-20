@@ -26,8 +26,9 @@
     form.querySelectorAll('button[type=submit]').forEach(b => { b.disabled = on; });
   };
 
-  /* ----- Switch Masuk <-> Daftar ----- */
+  /* ----- Switch Masuk <-> Daftar (URL ikut berubah: /login <-> /register) ----- */
   const setMode = mode => {
+    history.replaceState(null, '', mode === 'signup' ? '/register' : '/login');
     card.classList.remove('otp-active');
     card.classList.toggle('right-active', mode === 'signup');
     notify(formIn); notify(formUp); notify(formOtp);
@@ -43,13 +44,9 @@
   document.querySelectorAll('.form-control').forEach(i =>
     i.addEventListener('input', () => i.classList.toggle('is-invalid', i.value !== '' && !i.checkValidity())));
 
-  /* Tujuan setelah masuk: ?next=... atau beranda. Hanya nama file .html di folder yang sama
-     (mencegah open redirect; server memeriksa ulang). */
-  const nextUrl = () => {
-    const n = new URLSearchParams(window.location.search).get('next') || '';
-    return /^[a-z0-9_-]+\.html(\?[a-z0-9_=&-]*)?$/i.test(n) ? n : 'landing.html';
-  };
-  const goNext = () => window.location.replace(nextUrl());
+  /* Setelah masuk, server (/go) mengarahkan ke halaman yang tadi dituju, atau beranda.
+     Tujuan disimpan di cookie server, bukan di URL, dan hanya dari daftar halaman yang diizinkan. */
+  const goNext = () => window.location.replace('/go');
 
   /* ===================== OTP ===================== */
   let challenge = null;   // token bertanda tangan dari server (bukti sandi sudah benar)
@@ -162,9 +159,8 @@
     } finally { busy(formUp, false); }
   });
 
+  if (window.location.pathname.replace(/\/+$/, '') === '/register') card.classList.add('right-active');
+
   /* ----- Jika sudah login, tidak perlu di halaman ini ----- */
   api.me().then(u => { if (u) goNext(); }).catch(() => { /* server tak terjangkau: biarkan form tampil */ });
-
-  /* Datang dari halaman yang butuh login: beri tahu */
-  if (nextUrl().startsWith('distro.html')) notify(formIn, 'info', 'Masuk dulu untuk membaca materi lengkap distro.');
 })();
