@@ -108,17 +108,17 @@
 
   /* ===== Kartu polaroid: foto distro berganti otomatis tiap 3 detik ===== */
   const DISTROS = {
-    ubuntu: { name: 'Ubuntu',     tag: 'Pemula',   img: 'img/tux-ubuntu.jpg',  pos: '50% 40%', alt: 'Tux memegang CD Ubuntu',
+    ubuntu: { name: 'Ubuntu',     tag: 'Pemula',   img: '/img/tux-ubuntu.jpg',  pos: '50% 40%', alt: 'Tux memegang CD Ubuntu',
               desc: 'Pilihan populer pemula: mudah dipasang, komunitas besar.' },
-    debian: { name: 'Debian',     tag: 'Stabil',   img: 'img/debian-lain.jpg', pos: '50% 40%', alt: 'Karakter anime memakai laptop berlogo Debian',
+    debian: { name: 'Debian',     tag: 'Stabil',   img: '/img/debian-lain.jpg', pos: '50% 40%', alt: 'Karakter anime memakai laptop berlogo Debian',
               desc: 'Sangat stabil. Ubuntu dibangun di atasnya.' },
-    mint:   { name: 'Linux Mint', tag: 'Pemula',   img: 'img/tux-mint.jpg',    pos: '50% 55%', alt: 'Tux memegang CD Linux Mint',
+    mint:   { name: 'Linux Mint', tag: 'Pemula',   img: '/img/tux-mint.jpg',    pos: '50% 55%', alt: 'Tux memegang CD Linux Mint',
               desc: 'Akrab bagi pengguna Windows, nyaman sehari-hari.' },
-    kali:   { name: 'Kali Linux', tag: 'Keamanan', img: 'img/kali.jpg',        pos: '50% 50%', alt: 'Logo Kali Linux di depan bulan',
+    kali:   { name: 'Kali Linux', tag: 'Keamanan', img: '/img/kali.jpg',        pos: '50% 50%', alt: 'Logo Kali Linux di depan bulan',
               desc: 'Khusus untuk pengujian dan belajar keamanan siber.' },
-    arch:   { name: 'Arch Linux', tag: 'Mahir',    img: 'img/tux-arch.jpg',    pos: '50% 40%', alt: 'Tux memegang CD Arch Linux',
+    arch:   { name: 'Arch Linux', tag: 'Mahir',    img: '/img/tux-arch.jpg',    pos: '50% 40%', alt: 'Tux memegang CD Arch Linux',
               desc: 'Ringan dan fleksibel, rakit sistemmu sendiri.' },
-    fedora: { name: 'Fedora',     tag: 'Terbaru',  img: 'img/fedora.jpg',      pos: '20% 50%', alt: 'Logo Fedora dengan ilustrasi karakter anime',
+    fedora: { name: 'Fedora',     tag: 'Terbaru',  img: '/img/fedora.jpg',      pos: '20% 50%', alt: 'Logo Fedora dengan ilustrasi karakter anime',
               desc: 'Teknologi terbaru yang tetap rapi dan stabil.' }
   };
   const INTERVAL = 3000;        // ms antar foto
