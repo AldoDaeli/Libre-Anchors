@@ -315,7 +315,7 @@ class TestCsrfAndRequestChecks(Base):
         self.assertEqual(r.status_code, 413)
 
     def test_security_headers(self):
-        r = self.c.get("/landing.html")
+        r = self.c.get("/")
         for h in ["Content-Security-Policy", "X-Content-Type-Options", "X-Frame-Options", "Referrer-Policy",
                   "Permissions-Policy", "Cross-Origin-Opener-Policy"]:
             self.assertIn(h, r.headers, h)
@@ -335,20 +335,37 @@ class TestAccessControl(Base):
         self.assertEqual(self.post("/api/me/password", {"current_password": "a", "new_password": "b"}).status_code, 401)
 
     def test_protected_pages_redirect_to_login(self):
-        r = self.c.get("/distro.html?d=arch")
+        r = self.c.get("/distro/arch")
         self.assertEqual(r.status_code, 302)
-        self.assertIn("/login.html?next=distro.html%3Fd%3Darch", r.headers["Location"])
-        self.assertEqual(self.c.get("/profil.html").status_code, 302)
+        self.assertEqual(r.headers["Location"], "/login")          # URL bersih, tanpa ?next=
+        self.assertIn("nx=/distro/arch", r.headers["Set-Cookie"])   # tujuan diingat server lewat cookie
+        self.assertEqual(self.c.get("/profil").status_code, 302)
         self.make_user()
-        self.assertEqual(self.c.get("/distro.html?d=arch").status_code, 200)
-        self.assertEqual(self.c.get("/profil.html").status_code, 200)
+        self.assertEqual(self.c.get("/distro/arch").status_code, 200)
+        self.assertEqual(self.c.get("/profil").status_code, 200)
+
+    def test_clean_urls_and_legacy_redirects(self):
+        for path in ("/", "/login", "/register", "/login/"):
+            self.assertEqual(self.c.get(path).status_code, 200, path)
+        for old, new in (("/landing.html", "/"), ("/login.html", "/login"), ("/profil.html", "/profil"),
+                         ("/distro.html?d=ubuntu", "/distro/ubuntu"), ("/distro.html?d=../x", "/#about")):
+            r = self.c.get(old)
+            self.assertEqual((r.status_code, r.headers["Location"]), (302, new), old)
+        self.assertEqual(self.c.get("/app.py").status_code, 404)
+        self.assertEqual(self.c.get("/distro/ubuntu%20x").status_code, 404)
+
+    def test_go_returns_to_saved_page(self):
+        self.c.get("/distro/arch")                                  # tamu -> cookie nx
+        r = self.c.get("/go")
+        self.assertEqual(r.headers["Location"], "/distro/arch")
+        self.assertIn("nx=;", r.headers["Set-Cookie"])              # cookie dihapus (sekali pakai)
+        self.assertEqual(self.c.get("/go").headers["Location"], "/")
 
     def test_open_redirect_not_possible(self):
-        # "next" yang mencurigakan diganti ke beranda; tidak pernah diteruskan ke login.
-        r = self.c.get("/distro.html?d=//evil.com")
-        self.assertEqual(r.headers["Location"], "/login.html?next=landing.html")
-        r = self.c.get("/distro.html?d=ubuntu")  # yang sah tetap diteruskan
-        self.assertEqual(r.headers["Location"], "/login.html?next=distro.html%3Fd%3Dubuntu")
+        # Cookie "nx" yang dipalsukan tidak pernah diikuti kecuali cocok dengan daftar ketat.
+        for evil in ("//evil.com", "https://evil.com", "/\\evil.com", "/profil/../x", "/api/me", "javascript:alert(1)"):
+            self.c.set_cookie("nx", evil)
+            self.assertEqual(self.c.get("/go").headers["Location"], "/", evil)
 
     def test_distro_content_only_via_api_after_login(self):
         self.assertEqual(self.c.get("/distro-data.js").status_code, 404)   # data tidak lagi file publik
