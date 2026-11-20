@@ -20,7 +20,7 @@
   let user;
   try { user = await api.me(); }
   catch (e) { return notify('danger', e.message); }
-  if (!user) { window.location.replace('login.html?next=profil.html'); return; }
+  if (!user) { window.location.replace('/login'); return; }
 
   const render = u => {
     document.getElementById('userName').textContent = `Halo, ${u.name}`;
@@ -36,7 +36,7 @@
 
   document.getElementById('btnKeluar').addEventListener('click', async () => {
     await api.logout();
-    window.location.href = 'landing.html';
+    window.location.href = '/';
   });
 
   document.querySelectorAll('.form-control').forEach(f => f.addEventListener('input', () =>
@@ -58,7 +58,7 @@
       render(user);
       notify('success', 'Profil berhasil diperbarui.');
     } catch (err) {
-      if (err.status === 401) return window.location.replace('login.html?next=profil.html');
+      if (err.status === 401) return window.location.replace('/login');
       notify('danger', err.message);
     } finally { btn.disabled = false; }
   });
@@ -76,7 +76,7 @@
       pwForm.reset();
       notifyPw('success', 'Kata sandi diganti. Perangkat lain dikeluarkan dari akunmu.');
     } catch (err) {
-      if (err.status === 401) return window.location.replace('login.html?next=profil.html');
+      if (err.status === 401) return window.location.replace('/login');
       notifyPw('danger', err.message);
     } finally { btn.disabled = false; }
   });
