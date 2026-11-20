@@ -20,11 +20,12 @@ class VercelPathTests(unittest.TestCase):
 
     def test_root_restored(self):
         r = self.c.get("/api/index?__p=")
-        self.assertEqual(r.status_code, 302)
-        self.assertEqual(r.headers["Location"], "/landing.html")
+        self.assertEqual(r.status_code, 200)   # beranda dilayani langsung di "/"
 
     def test_static_page_served(self):
-        r = self.c.get("/api/index?__p=landing.html")
+        r = self.c.get("/api/index?__p=login")
+        self.assertEqual(r.status_code, 200)
+        r = self.c.get("/api/index?__p=landing.css")
         self.assertEqual(r.status_code, 200)
 
     def test_api_path_restored(self):
@@ -33,8 +34,10 @@ class VercelPathTests(unittest.TestCase):
         self.assertIn("token", r.get_json())
 
     def test_original_query_preserved(self):
-        r = self.c.get("/api/index?__p=distro.html&d=ubuntu")  # tamu -> dialihkan ke login dengan next
-        self.assertEqual(r.headers["Location"], "/login.html?next=distro.html%3Fd%3Dubuntu")
+        r = self.c.get("/api/index?__p=distro.html&d=ubuntu")  # URL lama -> URL bersih
+        self.assertEqual(r.headers["Location"], "/distro/ubuntu")
+        r = self.c.get("/api/index?__p=distro/ubuntu")          # tamu -> /login
+        self.assertEqual(r.headers["Location"], "/login")
 
     def test_traversal_blocked(self):
         for p in ("../app.py", "..%2F..%2Fetc%2Fpasswd", ".env", "static/../.env"):
