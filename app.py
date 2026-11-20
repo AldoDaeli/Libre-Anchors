@@ -1,3 +1,4 @@
+"""Tuxpedia: aplikasi Flask. Jalankan:  flask --app app run   (atau: python app.py)"""
 import json
 import logging
 import os
@@ -16,31 +17,33 @@ from auth import bp as api_bp, cookie_names, err, load_session
 from config import load_config
 from security import csrf_valid
 
+# Hanya file statis dengan ekstensi ini yang boleh dilayani (kode .py, .db, .env, dll. tidak akan pernah terkirim).
 ALLOWED_EXT = {".html", ".css", ".js", ".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".ico", ".woff2", ".txt"}
+# URL bersih -> file HTML. Halaman yang butuh login dicek di SERVER, bukan hanya di JavaScript.
 PAGES = {"": "landing.html", "login": "login.html", "register": "login.html"}
-PROTECTED = {"profil": "profil.html"}          
+PROTECTED = {"profil": "profil.html"}            # + /distro/<kunci>
 LEGACY = {"landing.html": "/", "index.html": "/", "login.html": "/login", "profil.html": "/profil"}
 DISTRO_KEY = re.compile(r"[a-z0-9-]{1,30}")
-NEXT_OK = re.compile(r"/(profil|distro/[a-z0-9-]{1,30})")  
+NEXT_OK = re.compile(r"/(profil|distro/[a-z0-9-]{1,30})")  # satu-satunya tujuan yang boleh diingat setelah login
 
 CSP = "; ".join([
     "default-src 'self'",
-    "script-src 'self' https://cdn.jsdelivr.net",          
+    "script-src 'self' https://cdn.jsdelivr.net",          # tanpa 'unsafe-inline': XSS lewat inline script diblokir
     "style-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com",
-    "style-src-attr 'unsafe-inline'",                        
+    "style-src-attr 'unsafe-inline'",                        # hanya atribut style=""; <style> inline tetap diblokir
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data:",
     "connect-src 'self'",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
-    "frame-ancestors 'none'",                                
+    "frame-ancestors 'none'",                                # anti-clickjacking
 ])
 
 
 def setup_logging(app):
     fmt = logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
-    handlers = [logging.StreamHandler()] 
+    handlers = [logging.StreamHandler()]  # stdout/stderr -> Vercel Logs
     if app.config["LOG_TO_FILE"]:
         try:
             handlers.append(RotatingFileHandler(app.config["INSTANCE_DIR"] / "security.log", maxBytes=1_000_000, backupCount=5, encoding="utf-8"))
@@ -61,7 +64,7 @@ def cleanup(conn):
     conn.execute("DELETE FROM otps WHERE expires_at < ?", (now,))
     conn.execute("DELETE FROM sessions WHERE expires_at < ?", (now,))
     conn.execute("DELETE FROM rate_limits WHERE window_start < ?", (now - 86400,))
-    conn.execute("DELETE FROM users WHERE verified = 0 AND created_at < ?", (now - 86400,))  
+    conn.execute("DELETE FROM users WHERE verified = 0 AND created_at < ?", (now - 86400,))  # pendaftaran tak diverifikasi
 
 
 def create_app(overrides=None):
@@ -85,9 +88,10 @@ def create_app(overrides=None):
 
     allowed_hosts = {h.strip().lower() for h in os.getenv("ALLOWED_HOSTS", "").split(",") if h.strip()}
 
+    # ------------------------------------------------------------------ sebelum tiap request
     @app.before_request
     def guard():
-        if allowed_hosts and request.host.lower() not in allowed_hosts: 
+        if allowed_hosts and request.host.lower() not in allowed_hosts:  # cegah Host header attack
             abort(400)
         load_session()
         if random.random() < 0.02:
@@ -105,6 +109,7 @@ def create_app(overrides=None):
             if not csrf_valid(cfg["SECRET_KEY"], request.cookies.get(cookie_names()[1]), request.headers.get("X-CSRF-Token")):
                 return err("csrf", "Token keamanan tidak valid. Muat ulang halaman lalu coba lagi.", 403)
 
+    # ------------------------------------------------------------------ setelah tiap request
     @app.after_request
     def harden(resp):
         sid_name = cookie_names()[0]
@@ -128,8 +133,10 @@ def create_app(overrides=None):
             h["Cache-Control"] = "no-store"
         return resp
 
+    # ------------------------------------------------------------------ halaman & file statis
     def page(filename, protected=False, nxt="/"):
         if protected and not g.user:
+            # Ingat tujuan di cookie pendek (bukan di URL) lalu kirim ke /login.
             resp = redirect("/login")
             resp.set_cookie("nx", nxt, max_age=600, httponly=True, secure=cfg["COOKIE_SECURE"], samesite="Lax", path="/")
             resp.headers["Cache-Control"] = "no-store"
@@ -168,6 +175,7 @@ def create_app(overrides=None):
 
     @app.get("/<path:filename>")
     def static_files(filename):
+        # URL .html lama dialihkan ke URL bersih (bookmark lama tetap jalan).
         if filename in LEGACY:
             return redirect(LEGACY[filename])
         if filename == "distro.html":
@@ -180,6 +188,7 @@ def create_app(overrides=None):
         resp.headers["Cache-Control"] = "no-cache" if p.suffix.lower() in (".js", ".css") else "public, max-age=3600"
         return resp
 
+    # ------------------------------------------------------------------ error: tidak pernah membocorkan detail internal
     @app.errorhandler(HTTPException)
     def http_error(e):
         if request.path.startswith("/api/"):
@@ -190,12 +199,17 @@ def create_app(overrides=None):
 
     @app.errorhandler(Exception)
     def unhandled(e):
-        log.exception("Kesalahan tak terduga")
+        log.exception("Kesalahan tak terduga")  # detail hanya di log server
         if request.path.startswith("/api/"):
             return err("server_error", "Terjadi kesalahan di server.", 500)
         return ("500 Internal Server Error", 500)
 
     return app
 
+
+# Vercel (dan "flask --app app run") mencari variabel Flask bernama "app" di file ini.
+app = create_app()
+
 if __name__ == "__main__":
-    create_app().run(host="127.0.0.1", port=int(os.getenv("PORT", "5000")), debug=False)
+    # Hanya untuk development. Production: Vercel / gunicorn wsgi:app. Debug sengaja TIDAK diaktifkan.
+    app.run(host="127.0.0.1", port=int(os.getenv("PORT", "5000")), debug=False)
